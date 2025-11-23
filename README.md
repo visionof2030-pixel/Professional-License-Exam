@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جميل الان اكتب في اعلى الصفحة بخط عريض.               “تم إعداد هذا الاختبار التفاعلي لمحاكاة الاختبار الرسمي للرخصة المهنية. إعداد: فهد الخالدي”
+    <title>.               “تم إعداد هذا الاختبار التفاعلي لمحاكاة الاختبار الرسمي للرخصة المهنية. إعداد: فهد الخالدي”
 
 “This interactive test is designed to simulate the official Professional License Exam. Prepared by: Fahad Alkhaldi”</title>
     <style>
