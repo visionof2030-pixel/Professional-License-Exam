@@ -1,857 +1,1500 @@
+
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الرخصة المهنية – نموذج احترافي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>اختبار الرخصة المهنية</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary: #6c63ff;
-            --primary-dark: #564fd8;
-            --secondary: #ff6584;
-            --dark-bg: #121212;
-            --dark-card: #1e1e1e;
-            --darker-card: #252525;
-            --text: #e0e0e0;
-            --text-light: #a0a0a0;
-            --correct: #4caf50;
-            --wrong: #f44336;
-            --border: #333;
-            --shadow: rgba(0, 0, 0, 0.3);
-        }
-
+        
         body {
-            background: var(--dark-bg);
-            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
             line-height: 1.6;
-            min-height: 100vh;
             padding: 0;
             margin: 0;
-            transition: all 0.3s ease;
+            min-height: 100vh;
         }
-
-        .container {
+        
+        .header-notice {
+            background: linear-gradient(135deg, #3c6df0 0%, #2a5bd7 100%);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            position: relative;
+        }
+        
+        .header-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
-
-        /* Header Styles */
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 25px 0;
-            text-align: center;
-            box-shadow: 0 4px 20px var(--shadow);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
-
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--secondary), #ff9a00, #ff3d00);
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .teacher-signature {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #ffeb3b;
-            margin-top: 15px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.5px;
-            padding: 10px 25px;
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Quiz Stats */
-        .quiz-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--dark-card);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px var(--shadow);
-            border: 1px solid var(--border);
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .stats-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .stats-icon {
-            font-size: 1.4rem;
-        }
-
-        /* Progress Bar */
-        .progress-container {
-            background: var(--darker-card);
-            border-radius: 10px;
-            height: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            transition: width 0.5s ease;
-            width: 0%;
-        }
-
-        /* Pagination */
-        .top-pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .bottom-pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 40px 0 20px;
-            flex-wrap: wrap;
-        }
-
-        .page-btn {
-            background: var(--dark-card);
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .page-btn:hover:not(:disabled) {
-            background: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--shadow);
-        }
-
-        .page-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .page-indicator {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .page-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--darker-card);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .page-dot.active {
-            background: var(--primary);
-            transform: scale(1.2);
-        }
-
-        /* Quiz Container */
-        .quiz-container {
-            display: none;
-        }
-
-        .quiz-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Question Box */
-        .question-box {
-            background: var(--dark-card);
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px var(--shadow);
-            transition: all 0.3s ease;
-            border-left: 5px solid var(--primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .question-box::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-        }
-
-        .question-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px var(--shadow);
-        }
-
-        .question-number {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 35px;
+        
+        .notice-arabic, .notice-english {
             font-weight: bold;
-            margin-bottom: 15px;
-            box-shadow: 0 3px 10px rgba(108, 99, 255, 0.3);
-        }
-
-        .question-box p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            color: var(--text);
+            margin: 10px 0;
             line-height: 1.5;
         }
-
-        /* Options */
-        label {
-            cursor: pointer;
-            display: block;
-            margin: 12px 0;
-            padding: 15px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            background: var(--darker-card);
+        
+        .notice-arabic {
+            font-size: 1.4em;
+            margin-bottom: 15px;
         }
-
-        label:hover {
-            background: rgba(108, 99, 255, 0.1);
-            border-color: var(--primary);
+        
+        .notice-english {
+            font-size: 1.1em;
+            opacity: 0.95;
         }
-
-        label::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary);
-            opacity: 0;
-            transition: opacity 0.3s;
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
-
-        label:hover::before {
-            opacity: 1;
+        
+        h2 {
+            text-align: center;
+            color: #2a5bd7;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
         }
-
-        input[type="radio"] {
-            margin-left: 10px;
-            transform: scale(1.2);
-            accent-color: var(--primary);
+        
+        .question-box {
+            background: #fff;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-right: 5px solid #3c6df0;
+            transition: all 0.3s ease;
         }
-
-        /* Feedback */
-        .correct {
-            color: var(--correct);
+        
+        .question-box:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-number {
+            font-size: 1.3em;
+            color: #3c6df0;
+            margin-bottom: 15px;
             font-weight: bold;
-            padding: 10px 15px;
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: 6px;
-            margin-top: 15px;
-            display: inline-block;
-            border-right: 3px solid var(--correct);
-        }
-
-        .wrong {
-            color: var(--wrong);
-            font-weight: bold;
-            padding: 10px 15px;
-            background: rgba(244, 67, 54, 0.1);
-            border-radius: 6px;
-            margin-top: 15px;
-            display: inline-block;
-            border-right: 3px solid var(--wrong);
-        }
-
-        .explanation {
-            margin-top: 20px;
-            color: var(--text-light);
-            background: rgba(30, 30, 30, 0.7);
-            padding: 18px;
-            border-radius: 8px;
-            border-right: 4px solid var(--primary);
-            display: none;
-            line-height: 1.6;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
-        }
-
-        /* Buttons */
-        .buttons-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 14px 28px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
             display: flex;
             align-items: center;
-            gap: 8px;
         }
-
+        
+        .question-number:before {
+            content: "•";
+            margin-left: 10px;
+            font-size: 1.5em;
+        }
+        
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            color: #444;
+            line-height: 1.7;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .options label {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 5px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #f9f9f9;
+        }
+        
+        .options label:hover {
+            background: #f0f5ff;
+            border-color: #3c6df0;
+            transform: translateY(-2px);
+        }
+        
+        .options input[type="radio"] {
+            margin-left: 15px;
+            transform: scale(1.2);
+        }
+        
+        .correct {
+            color: #2e7d32;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .correct:before {
+            content: "✓";
+            margin-left: 10px;
+            font-size: 1.2em;
+        }
+        
+        .wrong {
+            color: #d32f2f;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .wrong:before {
+            content: "✗";
+            margin-left: 10px;
+            font-size: 1.2em;
+        }
+        
+        .explanation {
+            margin-top: 25px;
+            color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            background: #f9f9f9;
+            border-right: 4px solid #3c6df0;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .explanation-line {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            line-height: 1.6;
+        }
+        
+        .explanation-correct {
+            background: #e8f5e9;
+            border-right: 3px solid #4caf50;
+        }
+        
+        .explanation-wrong-1 {
+            background: #ffebee;
+            border-right: 3px solid #f44336;
+        }
+        
+        .explanation-wrong-2 {
+            background: #fff3e0;
+            border-right: 3px solid #ff9800;
+        }
+        
+        .explanation-wrong-3 {
+            background: #fff9c4;
+            border-right: 3px solid #ffeb3b;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #3c6df0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #4a43c4 100%);
+            background: #2a5bd7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        button.secondary {
-            background: var(--darker-card);
-            color: var(--text);
-            border: 1px solid var(--border);
+        
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
-
-        button.secondary:hover {
-            background: var(--dark-card);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Results */
+        
         #result-box, #current-score {
-            background: var(--dark-card);
-            padding: 30px;
-            margin-top: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px var(--shadow);
+            background: #fff;
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             text-align: center;
-            border: 1px solid var(--border);
         }
-
+        
         #current-score {
             display: none;
         }
-
-        #result-box h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.8rem;
+        
+        .progress-bar {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-
-        #percentage {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin: 20px 0;
-            color: var(--primary);
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3c6df0, #2a5bd7);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
         }
-
-        #evaluation {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
         }
-
-        /* Evaluation Colors */
-        .excellent {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1));
-            color: var(--correct);
-            border: 1px solid rgba(76, 175, 80, 0.3);
+        
+        .quiz-info {
+            font-size: 16px;
+            color: #666;
+            font-weight: bold;
         }
-
-        .very-good {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(33, 150, 243, 0.1));
-            color: #2196f3;
-            border: 1px solid rgba(33, 150, 243, 0.3);
-        }
-
-        .good {
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 152, 0, 0.1));
-            color: #ff9800;
-            border: 1px solid rgba(255, 152, 0, 0.3);
-        }
-
-        .needs-improvement {
-            background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(244, 67, 54, 0.1));
-            color: var(--wrong);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-        }
-
-        /* Footer */
+        
         .footer {
             text-align: center;
-            margin-top: 50px;
             padding: 20px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eaeaea;
         }
-
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .teacher-signature {
-                font-size: 1.1rem;
-                padding: 8px 20px;
-            }
-            
             .container {
-                padding: 15px;
+                padding: 20px;
+                margin: 20px;
             }
             
-            .quiz-stats {
-                flex-direction: column;
-                align-items: flex-start;
+            .header-content {
+                padding: 0 15px;
             }
             
-            .top-pagination, .bottom-pagination {
-                flex-direction: column;
+            .notice-arabic {
+                font-size: 1.2em;
             }
             
-            .buttons-container {
+            .notice-english {
+                font-size: 1em;
+            }
+            
+            .question-box {
+                padding: 20px;
+            }
+            
+            .navigation {
                 flex-direction: column;
-                align-items: center;
+                gap: 10px;
             }
             
             button {
                 width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-            
-            .question-box {
-                padding: 20px 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>اختبار الرخصة المهنية – نموذج احترافي</h1>
-        <div class="teacher-signature">إعداد: المعلم فهد الخالدي</div>
+
+<div class="header-notice">
+    <div class="header-content">
+        <p class="notice-arabic">تم إعداد هذا الاختبار التفاعلي لمحاكاة الاختبار الرسمي للرخصة المهنية، ويقدم تغذية راجعة فورية لجميع الإجابات. إعداد: فهد الخالدي</p>
+        <p class="notice-english">This interactive test has been prepared to simulate the official Professional License Exam, providing immediate feedback for all answers. Prepared by: Fahad Alkhaldi</p>
     </div>
+</div>
 
-    <div class="container">
-        <div class="quiz-stats">
-            <div class="stats-item">
-                <span class="stats-icon">📝</span>
-                <span>عدد الأسئلة: 86 سؤالاً</span>
-            </div>
-            <div class="stats-item">
-                <span class="stats-icon">⏱️</span>
-                <span>الوقت المقترح: 120 دقيقة</span>
-            </div>
-            <div class="stats-item">
-                <span class="stats-icon">🎯</span>
-                <span>اختبار محاكاة للرخصة المهنية</span>
-            </div>
-        </div>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-
-        <div class="top-pagination">
-            <button class="page-btn" id="prev-page" disabled>
-                <i class="fas fa-arrow-right"></i>
-                <span>الصفحة السابقة</span>
-            </button>
-            
-            <div class="page-indicator" id="page-indicator">
-                <!-- سيتم إضافة نقاط الصفحات هنا ديناميكيًا -->
-            </div>
-        </div>
-
-        <div id="quiz-container">
-            <!-- سيتم تحميل صفحات الأسئلة هنا ديناميكيًا -->
-        </div>
-
-        <div class="bottom-pagination">
-            <button class="page-btn" id="next-page">
-                <span>الصفحة التالية</span>
-                <i class="fas fa-arrow-left"></i>
-            </button>
-        </div>
-
-        <div class="buttons-container">
-            <button onclick="finishQuiz()">
-                <span>إنهاء الاختبار</span>
-                <i class="fas fa-flag-checkered"></i>
-            </button>
-            <button onclick="showCurrentScore()" class="secondary">
-                <span>عرض الدرجات الحالية</span>
-                <i class="fas fa-chart-bar"></i>
-            </button>
-        </div>
-
-        <div id="current-score">
-            <h4>الدرجات الحالية:</h4>
-            <p id="current-correct"></p>
-            <p id="current-percentage"></p>
-        </div>
-
-        <div id="result-box" style="display:none;">
-            <h3 id="result"></h3>
-            <p id="percentage"></p>
-            <p id="evaluation"></p>
+<div class="container">
+    <h2>اختبار الرخصة المهنية – محاكاة شاملة</h2>
+    
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+    
+    <div id="quiz"></div>
+    
+    <div class="controls">
+        <div class="quiz-info" id="quiz-info"></div>
+        <div>
+            <button onclick="finishQuiz()">إنهاء الاختبار</button>
+            <button onclick="showCurrentScore()">📊 عرض الدرجات الحالية</button>
         </div>
     </div>
-
-    <div class="footer">
-        <p>نموذج اختبار الرخصة المهنية للمعلمين</p>
+    
+    <div id="current-score">
+        <h4>الدرجات الحالية:</h4>
+        <p id="current-correct"></p>
+        <p id="current-percentage"></p>
     </div>
+    
+    <div id="result-box" style="display:none;">
+        <h3 id="result"></h3>
+        <p id="percentage"></p>
+        <p id="evaluation"></p>
+    </div>
+</div>
 
-    <script>
-        // تعريف الأسئلة
-        const questions = [
-            // الأسئلة 1-10
-            { q: "1) إذا كنت تخطط لاستثارة التفكير الإبداعي لدى الطلاب، فيجب أن تكلف الطلاب بنشاطات وتطرح أسئلة تركز على التفكير:", options: ["التباعدي", "التقاربي", "الاستنباطي", "الاستقرائي"], answer: 0, explanation: "التفكير التباعدي يشجع الطلاب على الخروج بأفكار متعددة ومبتكرة، وهو الأسلوب الأنسب لتحفيز الإبداع." },
-            { q: "2) أراد معلم ترتيب البيئة الصفية للأطفال ذوي التوحد، وإن من أفضل الأساليب الرائدة عالمياً لتحقيق ذلك:", options: ["المنظم", "العقلي", "الجماعي", "غير المباشر"], answer: 0, explanation: "الأسلوب المنظم يساعد الأطفال ذوي التوحد على الاستقرار والوضوح، ويقلل من التشويش ويزيد التركيز." },
-            { q: "3) أي من العبارات الآتية تمثل رأياً لا حقيقة؟", options: ["أنزل القرآن بلسان عربي مبين", "تتفاوت درجات الحرارة بين منطقة وأخرى", "كثرة القراءة تسهم في نمو العقل وتزيد المعرفة", "التسامح أجل الأخلاق التي يتصف بها الإنسان"], answer: 3, explanation: "التسامح هنا تعبير عن قيمة أخلاقية ذاتية، وهي رأي شخصي أو اجتماعي، بينما بقية العبارات يمكن التحقق منها." },
-            { q: "4) أسلوب يستخدم للإخبار عن قصة خيالية أو واقعية وفقا لترتيب أحداثها. العبارة تصف نوعاً من الكتابة:", options: ["التوضيحية", "الإقناعية", "السردية", "الوصفية"], answer: 2, explanation: "السردية تهتم بسرد الأحداث بشكل متسلسل، سواء كانت واقعية أو خيالية." },
-            { q: "5) يمكن للمعلم تشجيع الطلاب على استخدام أسلوب تقويم الأقران بهدف:", options: ["استثمار زمن الحصة الدراسية", "تعزيز العلاقات الاجتماعية بين الطلاب", "تعزيز قيمة اعتماد الطالب على الآخرين", "جعل الطالب قادراً على نقد عمله وعمل الآخرين"], answer: 3, explanation: "تقويم الأقران يركز على تعزيز قدرة الطالب على تقييم عمله وعمل زملائه بشكل نقدي وبناء." },
-            { q: "6) طلب المعلم علي من طلابه أثناء أنشطة استخدام التقنية لإنجاز مهام تعليمية أن يوظفوا إستراتيجية التفكير الناقد:", options: ["طرح قضايا نقاشية واقتراح حلول", "استثارة تفكير الطلاب من خلال التفكر", "تقسيم الطلاب إلى مجموعات وجمع معلومات", "تقويم المواقع الإلكترونية للتمييز بين المعلومات الصحيحة وغير الصحيحة"], answer: 3, explanation: "تقويم المواقع الإلكترونية يسمح للطلاب بالتمييز بين المعلومات الصحيحة والخاطئة، وهو تطبيق مباشر للتفكير الناقد." },
-            { q: "7) عند التخطيط لتدريس وحدة الأدب العربي الحديث، المعلم استخدم منظم متقدم للوحدة لتهيئة أذهان الطلاب:", options: ["توجيهية", "تنشيطية", "افتتاحية", "انتقالية"], answer: 2, explanation: "تهيئة أذهان الطلاب قبل البدء بالدرس تُعرف بالافتتاحية، وتهدف لتحضير الطلاب ذهنياً للدرس القادم." },
-            { q: "8) أعلن المعلم نايف عن دورة استخدام الحاسوب، ما التصرف الأنسب للمعلم عبد الله صاحب الخبرة:", options: ["حضور الدورة والمشاركة بفاعلية", "الاعتذار عن عدم حضور الدورة", "حضور الدورة مجاملة بدون مشاركة", "الاعتذار لقناعته بأفضلية خبرته"], answer: 0, explanation: "المشاركة الفاعلة حسب خبراته تعزز التعلم الجماعي وتبادل المعرفة، وهو التصرف المهني الأمثل." },
-            { q: "9) من سمات المتحدث الجيد:", options: ["يتنبه لردود أفعال الجمهور", "يكثر من الشواهد الخارجية", "يبتعد عن النقاش والحوار", "يوصي ويشير بيده كثيراً"], answer: 0, explanation: "المتحدث الجيد يلاحظ ردود أفعال الجمهور لضبط أسلوبه ومستوى التفاعل، مما يزيد من فعالية التواصل." },
-            { q: "10) أي من النشاطات غير الصفية لا يصلح لتعزيز قضية المحافظة على المباني التراثية؟", options: ["حث أصحاب المباني التراثية على تجديد مظهرها", "تقديم مبادرات لتحويل المباني التراثية إلى مبان حديثة", "إعداد فيلم وثائقي عن المباني التراثية", "توزيع مطويات للتوعية بأهمية المباني التراثية"], answer: 1, explanation: "تحويل المباني التراثية إلى حديثة يناقض الحفاظ عليها." },
-            
-            // الأسئلة 11-20
-            { q: "11) مصدر كلمة (تعلم):", options: ["علم", "تعلم", "علوم", "تعليم"], answer: 1, explanation: "كلمة 'تعلم' هي المصدر مباشرة للفعل تعلم، بينما البقية إما اسم أو مشتقات أخرى." },
-            { q: "12) ضع علامات الترقيم المناسبة للجملة: أعجب معلم بإجابة أحد طلابه فقال ( ) ما أجمل هذه الإجابة ( )", options: [":  !", "/  !", "،  /", "/  ."], answer: 0, explanation: "النقطتان قبل القول وعلامة التعجب بعده." },
-            { q: "13) كتبت الألف المتطرفة خطأ في كلمة:", options: ["عصا", "رحى", "قفى", "طنطa"], answer: 3, explanation: "طنطا تُكتب بألف مقصورة لأنها أصلها ياء." },
-            { q: "14) أراد معلم تصنيف المعلومات والبيانات لاستبانة على 1000 طالب وتحليلها للوصول لنتائج:", options: ["Word", "Visio", "Excel", "Access"], answer: 2, explanation: "برنامج Excel يوفر جداول البيانات والتحليل الإحصائي للبيانات بسهولة ودقة، مما يجعله الخيار الأنسب." },
-            { q: "15) يمكن التنبؤ بأن درجات الطالب الذي حصل على درجة ذكاء 110 بأنها:", options: ["تبقى كما هي", "ترتفع بالعمر", "ترتفع بالخبرات المنظمة", "تنخفض بالعمر"], answer: 2, explanation: "الخبرات المنظمة تطوّر الأداء العقلي." },
-            { q: "16) طلب معلم من الطلاب تصفح الدرس سريعاً ثم إعادة قراءته بعمق مع تحديد المصطلحات ورسم مخطط:", options: ["المعرفي", "السلوكي", "الاجتماعي", "الشخصي"], answer: 0, explanation: "المدخل المعرفي يركز على فهم المفاهيم وربطها بالأمثلة، وهذا ما يقوم به المعلم في النشاط." },
-            { q: "17) إذا لاحظت أن ورقتين اختباريتين لهما نفس الأجوبة والطالبان أنكروا الغش، أي إجراء مناسب؟", options: ["تعطيهم صفراً", "تطلب إعادة الاختبار", "تصححها وتحولها لإدارة المدرسة", "تحول للجنة الاختبار قبل التصحيح"], answer: 3, explanation: "تحويل الورقتين للجنة الاختبارات للتحقق من أي تلاعب يضمن عدالة التقويم ويعالج المشكلة بطريقة رسمية." },
-            { q: "18) استراتيجية لماذا؟ وماذا؟ وكيف؟ للعالم:", options: ["هيرمان", "كولب", "ماكافي", "مكارثي"], answer: 1, explanation: "استراتيجية كولب تعتمد على التساؤل والاستفسار بشكل منهجي لتطوير التعلم النشط." },
-            { q: "19) من مهارات القراءة الجهرية التي تميزها عن الصامتة:", options: ["الطلاقة", "الضبط السليم", "تحريك الشفتين", "إدراك رسم العبارة"], answer: 1, explanation: "الضبط السليم يختص بالقراءة الجهرية." },
-            { q: "20) عند التخطيط لدرس 'حقوق وواجبات' لموضوع ضعف روابط الصلة بين أبناء الحي، أنسب نشاط للطلاب:", options: ["كتابة مقال عن أسباب ضعف الروابط واقتراح الحلول", "جمع قصص ونوادر عن الجيرة الحسنة", "تنظيم مسابقة 'أحب جاري'", "شرح حديث 'مازال جبريل يوصيني بالجار'"], answer: 0, explanation: "كتابة مقال يعزز التفكير التحليلي لدى الطلاب ويتيح لهم اقتراح حلول عملية، وهو نشاط تفاعلي وتربوي." },
-            
-            // الأسئلة 21-30
-            { q: "21) أسلوب يستخدم للإخبار عن قصة خيالية أو واقعية وفق ترتيب أحداثها. النوع:", options: ["التوضيحية", "الإقناعية", "السردية", "الوصفية"], answer: 2, explanation: "السردية تركز على ترتيب الأحداث وتسلسلها بشكل منطقي، سواء كانت واقعية أو خيالية." },
-            { q: "22) يؤدي المعلم دورًا في تنمية المجتمع المحلي، أي مما يلي ليس في هذا المجال؟", options: ["المساعدة في برامج محو الأمية", "نشر الثقافة العلمية", "تنمية الوعي البيئي", "بناء المفاهيم العلمية"], answer: 3, explanation: "بناء المفاهيم العلمية يتعلق بالتعلم داخل الصف وليس بالتنمية المجتمعية المباشرة." },
-            { q: "23) قال المتنبي: يملأ الأفعال رأياً وحكمة ونادرة ... ويغضب. الكلمتان لتكملة البيت:", options: ["فتا، يرضا", "فتا، يرضى", "فتى، يرضا", "فتى، يرضى"], answer: 3, explanation: "الصيغة الصحيحة هي 'فتى يرضى' وفق القواعد الإملائية والشعرية للمتنبي." },
-            { q: "24) كل مما يلي من خصائص الكتابة الوظيفية ما عدا:", options: ["سهولة العبارة", "الاستشهاد بالحقائق", "الاعتماد على الخيال", "اختفاء شخصية الكاتب"], answer: 2, explanation: "الكتابة الوظيفية تعتمد على الحقائق والموضوعية، وليس على الخيال." },
-            { q: "25) تنمية مهارات الطالب في إدارة الوقت تتم من خلال:", options: ["تدريبه على وضع خطة زمنية لتنفيذ الأنشطة", "إكسابه المهارات المعرفية المتعلقة بأهمية الوقت", "مساعدته على إنهاء النشاط في الوقت المحدد", "منحه الحرية في تحديد الوقت لتنفيذ الأنشطة"], answer: 0, explanation: "وضع خطة زمنية يعلم الطالب التخطيط والتنظيم ويزيد وعيه بأهمية الوقت كمهارة عملية." },
-            { q: "26) أحد الطلاب استهزاء بإجابة زميله، الإجراء التربوي الأنسب:", options: ["تأديبه أمام الزملاء", "تحويل السؤال إليه مباشرة", "إيقافه وطلب الاعتذار فورًا", "استدعاؤه على انفراد بعد الحصة وتوضيح خطأه"], answer: 3, explanation: "التعامل على انفراد يضمن توعية الطالب دون إحراجه أمام زملائه ويحقق التعليم السلوكي الصحيح." },
-            { q: "27) المدرسة قدمت اختباراً موحداً، تفاوت تقدير المعلمين يدل على افتقار الاختبار إلى:", options: ["الصدق", "الثبات", "الشمولية", "الموضوعية"], answer: 1, explanation: "تفاوت الدرجات بين المعلمين يشير إلى نقص الثبات، أي أن الاختبار لا يعطي نفس النتائج عند إعادة تطبيقه." },
-            { q: "28) قبل تنفيذ المشروعات البحثية، المعلمة أعطت سلم تقدير للطالبات، النتيجة المتوقعة:", options: ["ارتفاع جودة المشروعات", "زيادة الوقت اللازم", "انخفاض مصداقية التصحيح", "شعور الطالبات بالإحباط"], answer: 0, explanation: "تزويد الطلاب بمعايير التصحيح يساعدهم على تقديم أعمال أفضل ويزيد من جودة المشاريع وفق معايير موضوعية." },
-            { q: "29) من سمات الشخصية لجذب انتباه المستمعين:", options: ["المحافظة على وتيرة صوت واحدة", "التواصل البصري مع المستمعين", "محاولة الخروج عن الموضوع", "استخدام الكلمات الغريبة"], answer: 1, explanation: "التواصل البصري يزيد من التفاعل مع المستمع ويجذب انتباهه، وهو من أهم سمات المتحدث الجيد." },
-            { q: "30) جلسة العصف الذهني لاقتراح أسلوب يدعم توقعات الطلاب العالية، كل مما يلي يساعد عدا:", options: ["مقارنة الأداء مع الأقران", "استخدام تكليفات متنوعة", "تقديم التغذية الراجعة", "التعرف على أوجه التميز لدى الطلاب"], answer: 0, explanation: "مقارنة الأداء مع الأقران قد تؤدي للشعور بالنقص أو الضغط، بينما بقية الخيارات إيجابية وتدعم تحقيق التوقعات العالية." },
-            
-            // الأسئلة 31-40
-            { q: "31) أي عمليات التعلم ذو المعنى يستهدفها المعلم عند طلب تحديد نقاط التشابه والاختلاف؟", options: ["الدعم والتسكيل", "التوفيق التكاملي", "التمايز التقدمي", "التنظيم المتسلسل"], answer: 1, explanation: "التوفيق التكاملي يقوم على الربط والمقارنة بين المفاهيم." },
-            { q: "32) من أشهر البرامج التي تساعد المعلم على تدوين بيانات الطلاب وإعداد التقارير عبر الرسوم البيانية:", options: ["Word", "Visio", "Excel", "Access"], answer: 2, explanation: "Excel يمكنه إنشاء جداول وتقارير ورسوم بيانية بسهولة، مما يسهل متابعة أداء الطلاب." },
-            { q: "33) كلمة 'غير أن' تدل على:", options: ["الاستدراك", "الاستثناء", "التذكير", "التعليل"], answer: 0, explanation: "'غير أن' تستخدم للاستدراك، أي تقديم معلومة مخالفة أو مضافة بعد الجملة السابقة." },
-            { q: "34) أحمد: اللغة العربية أكثر المفردات، بدر: أكثر انتشاراً، التحليل:", options: ["كلاهما محايدان", "كلاهما متحيزان", "أحمد محايد، بدر متحيز", "أحمد متحيز، بدر محايد"], answer: 3, explanation: "أحمد قدم رأيًا موضوعيًا عن اللغة، بينما بدر قدم رأيًا يعتمد على معيار شخصي." },
-            { q: "35) قال الوالد لابنه: ما أجملك. علامات الترقيم المناسبة:", options: ["، -", "، - ؟", ": - .", ": - !"], answer: 3, explanation: "استخدام النقطتين قبل الكلام المباشر وعلامة التعجب بعده يوضح الانفعال والاقتباس بشكل صحيح." },
-            { q: "36) كل الكلمات مترادفة ما عدا:", options: ["شامخ وحافل", "سامق وعالي", "روابط ووشائج", "شظف وضيق"], answer: 3, explanation: "'شظف وضيق' لا تعتبر مترادفة مع بقية الكلمات، بينما البقية مترادفة أو شبه مترادفة." },
-            { q: "37) يستخدم المتعلم أسلوب حل المشكلات للوصول إلى هدف معين، عندما يكون ذلك الهدف غير متاح أمامه. الضمير (الهاء) في 'أمامه' يعود على:", options: ["الهدف", "المتعلم", "الوصول", "متاح"], answer: 0, explanation: "الهاء في 'أمامه' تشير إلى الهدف غير المتاح أمام المتعلم." },
-            { q: "38) جميع الكلمات مصادر عدا:", options: ["وقوف", "ابتهال", "تناصح", "استثار"], answer: 3, explanation: "'استثار' فعل مشتق وليس مصدراً، بينما بقية الكلمات مصادر." },
-            { q: "39) الفعل يقارن ينتمي إلى:", options: ["التحليل"], answer: 0, explanation: "المقارنة عملية تحليل لأوجه التشابه والاختلاف." },
-            { q: "40) أراد معلم إثارة التفكير بحيث يتعرف الطلاب على المفهوم ثم الأمثلة، الأسلوب التدريسي:", options: ["الحوارية", "القياسية", "الاكتشاف", "حل المشكلات"], answer: 2, explanation: "طريقة الاكتشاف تشجع الطلاب على التوصل للمفاهيم بأنفسهم قبل تقديم الأمثلة، مما يعزز التعلم النشط." },
-            
-            // الأسئلة 41-50
-            { q: "41) إذا أراد المعلم تقويم امتلاك الطلاب لمهارات التلاوة والتجويد في القرآن الكريم، الأداة الأكثر دقة هي:", options: ["سلم التقدير", "الاختبار الكتابي", "السجل القصصي", "سجل وصف التعلم للطالب"], answer: 3, explanation: "سجل وصف التعلم للطالب يسمح بتسجيل أداء كل طالب بدقة أثناء التلاوة والتجويد، وهو أكثر ملاءمة لمهارات عملية." },
-            { q: "42) للحفاظ على دافعية الطلاب بعد خبرات إخفاق، استنادًا للنظريات المعرفية، يجب:", options: ["عزو الفشل للجهد المبذول", "تعزيز أي تقدم", "توفير بيئة صفية آمنة", "تشجيع تكرار المحاولات"], answer: 0, explanation: "عزو الفشل للجهد بدل القدرة يعزز الدافعية ويشجع الطلاب على المحاولة وتحسين أدائهم." },
-            { q: "43) للفروق الفردية أثر في التعلم، أكبر مدى للفروق يظهر في أي الصفات؟", options: ["الجسمية", "الشخصية", "المعرفية", "العقلية"], answer: 2, explanation: "الصفات المعرفية تختلف بشكل كبير بين الطلاب، مثل القدرة على التحليل والفهم وحل المشكلات." },
-            { q: "44) التغذية الراجعة حول تقدم الطلاب أثناء الوحدة، نوع التقويم:", options: ["تشخيصي", "تكويني", "نهائي", "قبلي"], answer: 1, explanation: "التقويم التكويني يركز على تقديم تغذية راجعة مستمرة لتحسين أداء الطلاب أثناء التعلم." },
-            { q: "45) بعد مراجعة المعلم لما قدمه والتفكر فيه، نوع التقويم:", options: ["ذاتي", "تشخيصي", "تكويني", "ختامي"], answer: 0, explanation: "التقويم الذاتي هو الذي يقوم به المعلم أو الطالب لمراجعة وتقييم الأداء الذاتي بهدف التحسين." },
-            { q: "46) التطبيقات التي يمكن للمعلم استخدامها للتواصل الإيجابي مع أولياء الأمور:", options: ["Google Classroom", "School Circle", "Class Dojo", "Remind"], answer: 3, explanation: "Remind يسمح بإرسال رسائل منتظمة لأولياء الأمور لإطلاعهم على تقدم أبنائهم بشكل دوري." },
-            { q: "47) مؤشراً على أن معلم الرياضيات ينمي مهارات التفكير الإبداعي:", options: ["يشكل اتجاهات إيجابية نحو الرياضيات", "يحقق متطلبات النجاح", "يفهم الطلاب المسائل", "يقدم الطلاب طرق مختلفة للحل"], answer: 3, explanation: "تشجيع الطلاب على إيجاد طرق متعددة لحل المسائل يدل على تنمية التفكير الإبداعي لديهم." },
-            { q: "48) خصائص الكتابة الوظيفية ما عدا:", options: ["سهولة العبارة", "الاستشهاد بالحقائق", "اختفاء شخصية الكاتب", "الاعتماد على الخيال"], answer: 3, explanation: "الكتابة الوظيفية موضوعية وتعتمد على الحقائق، ولا تعتمد على الخيال." },
-            { q: "49) كتبت الهمزات صحيحة في:", options: ["هدفك يوصلك لما تريد فأسع وراءه", "لا تكن طائشا", "أفضل طريقة لإزالة السلبية", "ركز على أهدافك"], answer: 0, explanation: "'فأسع' كتابة الهمزة صحيحة على الألف بعد الفاء، بينما بعض الخيارات الأخرى بها أخطاء إملائية." },
-            { q: "50) كتبت الضاد والظاء بشكل صحيح في:", options: ["خير الوعظ ضاهره العتاب", "في الظلام تضيق الرؤية", "أضعف الناس من أفشى سره", "التصرف في أثناء الغضب"], answer: 1, explanation: "'الظلام' و'تضيق' و'الرؤية' كتبوا بشكل صحيح، أما الخيارات الأخرى تحتوي على أخطاء." },
-            
-            // الأسئلة 51-60
-            { q: "51) الجملة الصحيحة إملائياً:", options: ["كن دومن لطيفن", "كن دومن لطيفا", "كن دوما لطيفا", "كن دوما لطيفن"], answer: 2, explanation: "الكتابة الصحيحة: 'كن دوما لطيفا' حيث 'دوما' ظرف زمان و'لطيفا' نعت منصوب." },
-            { q: "52) هذه الدرجة ...", options: ["ملغاة", "ملغية", "لاغية", "ملتغاة"], answer: 2, explanation: "الصياغة الصحيحة هي 'لاغية' بحسب قواعد اللغة العربية." },
-            { q: "53) طالبة تتحاشى القراءة، تستخدم أصابعها وتتخبط في الكلمات، التشخيص:", options: ["بطء التعلم", "عوق إدراكي", "تأخر دراسي", "صعوبات تعلم"], answer: 3, explanation: "هذه العلامات تشير إلى صعوبات التعلم، وليس مجرد بطء أو تأخر دراسي." },
-            { q: "54) سبب تدني مستوى طلاب صعوبات التعلم:", options: ["انخفاض الذكاء", "اضطراب العمليات الذهنية", "عدم وجود دافعية", "عدم القدرة على المشاركة"], answer: 1, explanation: "اضطراب العمليات الذهنية يعيق القدرة على معالجة المعلومات، وهو السبب الرئيسي لتدني الأداء." },
-            { q: "55) سعر جوال 7000 ريال أصبح 3700 بعد 3 سنوات، الخصم السنوي:", options: ["1100", "1300", "1500", "2100"], answer: 0, explanation: "الخصم الكلي = 7000 - 3700 = 3300، الخصم السنوي = 3300 ÷ 3 = 1100 ريال." },
-            { q: "56) أنواع القراءة من حيث الأداء:", options: ["جهرية-صامتة", "سمعية-بصرية", "مرئية-مسموعة", "سريعة-باطنة"], answer: 0, explanation: "القراءة يمكن أن تكون جهرية أي قراءة بصوت مسموع، أو صامتة للقراءة داخل العقل." },
-            { q: "57) جدار طوله 6 م وعرضه 3، سعر المتر 20 ريال، تكلفة الطلاء:", options: ["340", "400", "280", "360"], answer: 3, explanation: "المساحة = 6*3 =18 م²، التكلفة = 18*20 = 360 ريال." },
-            { q: "58) الدخول على موقع إلكتروني وتغيير تصميمه أو حذفه أو إتلافه يسمى:", options: ["جريمة معلوماتية", "سرقة إلكترونية", "تخريب رقمي", "إتلاف معلوماتي"], answer: 2, explanation: "يُعد تخريبًا رقميًا لأنه يغيّر أو يتلف البيانات." },
-            { q: "59) صفوة الأفكار في التقرير تكون في:", options: ["المقدمة", "التحليل", "التمهيد", "الختام"], answer: 3, explanation: "الختام هو المكان الذي يُجمع فيه أهم النتائج والأفكار الرئيسية في التقرير." },
-            { q: "60) فصل 20 طالب، الموهوبين 10%، انضم 4 طلاب واحد منهم موهوب، النسبة الجديدة:", options: ["12.5%", "17.5%", "20%", "15%"], answer: 0, explanation: "الطلاب الموهوبين = 2 +1 =3، إجمالي الطلاب = 24، النسبة = 3/24*100 =12.5%." },
-            
-            // الأسئلة 61-70
-            { q: "61) أي تنظيم منهج يهتم بحاجات الطلاب أكثر من ميولهم، ويسمح بالمساعدة وعدد الطلاب قليل:", options: ["المحوري", "المواد المنفصلة", "المواد المترابطة", "المجالات العلمية"], answer: 0, explanation: "التنظيم المحوري يركز على حاجات الطلاب ويتيح دعم إضافي وعدد محدود من الطلاب." },
-            { q: "62) الإسهام في تعزيز مكانة المعلم العلمية والاجتماعية يمثل:", options: ["الحقوق الوظيفية", "متطلبات الممارسة المهنية", "أهداف سياسة التعليم", "أهداف ميثاق أخلاقيات المهنة"], answer: 0, explanation: "تعزيز مكانة المعلم يعد من الحقوق الوظيفية المنصوص عليها." },
-            { q: "63) الحصة السادسة وأذن الظهر، المعلم يغرس قيم التدين:", options: ["يردد الأذان مع الطلاب", "يذكر قصص قصيرة عن الأذان", "يوضح واجب المسلم مع الأذان", "يستمر في شرح الدرس"], answer: 2, explanation: "شرح واجب المسلم مع الأذان يغرس القيم بشكل مباشر وواعٍ." },
-            { q: "64) إذا ابتسم المعلم فور أداء الطالب، نوع التعزيز:", options: ["أولي", "ثانوي", "معنوي", "مادي"], answer: 2, explanation: "ابتسامة المعلم تُعد تعزيزاً معنويًا لتشجيع الطالب." },
-            { q: "65) ترتيب أهداف زرع قيمة المواطنة حسب تصنيف كراثول:", options: ["٤٢٣١", "١٣٢٤", "١٢٣٤", "٢٣١٤"], answer: 2, explanation: "الترتيب من الأسهل للتطبيق إلى الأعلى مستوى لتحقيق القيمة وفق مستويات كراثول هو 1→2→3→4." },
-            { q: "66) تنظيم خبرات المعلم بحيث لا تكون مكررة بل ترتقي مرحلة لأخرى:", options: ["التتابع", "التكامل", "التقويم", "التوازن"], answer: 0, explanation: "التتابع يعني ترتيب الخبرات التعليمية من المستوى البسيط إلى المتقدم لضمان تعلم فعال." },
-            { q: "67) التعلم باستخدام الأجهزة الخلوية في بيئة غير محددة بالزمان والمكان:", options: ["الحوسبة السحابية", "الرحلات المعرفية", "التعليم المنتقل", "التعليم المتزامن"], answer: 2, explanation: "التعليم المنتقل يتيح التعلم في أي مكان وزمان باستخدام الأجهزة المحمولة." },
-            { q: "68) كتابة تقرير يتضمن الأفكار الرئيسية للدرس يمثل مستوى:", options: ["التحليل", "التطبيق", "التركيب", "التقويم"], answer: 2, explanation: "إعداد تقرير يتضمن ربط الأفكار ودمجها يمثل مستوى التركيب في الأهداف التعليمية." },
-            { q: "69) شروط بناء هدف سلوكي جيد تشمل:", options: ["ناتج التعلم", "موضوع التعلم", "عملية التعلم", "نشاط التعلم"], answer: 0, explanation: "أهم شيء هو ناتج التعلم القابل للقياس والذي يعكس السلوك المرغوب." },
-            { q: "70) اختبارات نسبة الذكاء تعد:", options: ["ذاتي المرجع", "معياري المرجع", "محكي المرجع", "مبنية على المنهج"], answer: 1, explanation: "اختبارات IQ معيارية لأنها تقارن أداء الفرد بأداء عينة معيارية." },
-            
-            // الأسئلة 71-80
-            { q: "71) نشاط مجموعات المثلثات وقياس الزوايا، طريقة التدريس:", options: ["الاستنباط", "الاستقراء", "العرض العملي", "حل المشكلات"], answer: 1, explanation: "جمع البيانات وملاحظة النتائج للوصول لحقيقة هي طريقة الاستقراء." },
-            { q: "72) طريقة تهتم بكم الأفكار قبل نوعيتها:", options: ["حل المشكلات", "العصف الذهني", "المشروعات", "المحاضرة"], answer: 1, explanation: "العصف الذهني يشجع على طرح أكبر عدد ممكن من الأفكار دون التركيز على الجودة أولاً." },
-            { q: "73) الحقائق التعليمية تعد:", options: ["تعليم تبادلي", "تعليم مباشر", "تفريد تعلم", "تعليم موجه"], answer: 1, explanation: "الحقائق التعليمية تُدرس بطريقة مباشرة لتوصيل المعلومة بدقة." },
-            { q: "74) من حقوق المعلم المدنية:", options: ["الاطلاع على تقويم الأداء", "دراسة المناهج وتقويمها", "المشاركة في برامج النشاط", "حضور الاجتماعات المدرسية"], answer: 0, explanation: "حق المعلم المدني يشمل الاطلاع على تقويم الأداء لضمان العدالة والشفافية." },
-            { q: "75) درس جديد بدون معلومات سابقة للطلاب، البعد المستخدم من أوزيل:", options: ["المقارن", "الاستقبالي", "الكشفي", "الشارح"], answer: 2, explanation: "البعد الكشفي يشجع الطلاب على اكتشاف المعلومات بأنفسهم دون الاعتماد على خبرة سابقة." },
-            { q: "76) تصنيف أدوات هندسية حسب عدد الأضلاع، يساعد الطلاب على تعلم:", options: ["المفاهيم", "الحقائق", "التعاميم", "القواعد"], answer: 0, explanation: "تصنيف الأشكال يركز على المفاهيم الهندسية وفهم الخصائص." },
-            { q: "77) تربية المواطن المؤمن لإعداده إعداداً سليماً، أي المبادرة:", options: ["الأصالة والتجديد", "التربية المتكاملة", "التربية للحياة", "تكافؤ الفرص"], answer: 1, explanation: "التربية المتكاملة تركز على تطوير القيم، الثقافة، والمهارات معاً." },
-            { q: "78) نموذج تقني يوفر التقنيات التعليمية متاح في أي وقت وأجهزة مختلفة:", options: ["الواقع المعزز", "الكتب التفاعلية", "المدونات التعليمية", "الحوسبة السحابية"], answer: 3, explanation: "الحوسبة السحابية توفر الموارد التعليمية لجميع الطلاب عبر أي جهاز وفي أي وقت." },
-            { q: "79) مجموعة القواعد والمعايير التي توجه الأفراد نحو منافع الحياة الحديثة:", options: ["الضبط الرقمي", "التوجيه الرقمي", "الرقابة الرقمية", "المواطنة الرقمية"], answer: 3, explanation: "المواطنة الرقمية تشمل استخدام التقنية بشكل مسؤول وآمن لتحقيق الفائدة." },
-            { q: "80) الطالب عبد الرحمن يأتي عليه آثار كدمات، الإجراء المناسب:", options: ["تجاهل", "الاتصال بالوالد", "إبلاغ إدارة المدرسة والمرشد", "التحقيق مع الطالب"], answer: 2, explanation: "إبلاغ الإدارة والمرشد يضمن متابعة الحالة وحماية الطالب بطريقة مهنية." },
-            
-            // الأسئلة 81-86
-            { q: "81) صف تتباين فيه قدرات الطلاب، أنسب أسلوب تدريس:", options: ["المناقشة", "المحاضرة", "تفريد التعليم", "التعلم التعاوني"], answer: 3, explanation: "التعلم التعاوني يتيح لكل طالب الاستفادة من الآخرين والتكيف مع الفروق الفردية." },
-            { q: "82) دور المتعلم في المدرسة السلوكية:", options: ["مشاركة زملائه في المهام", "تهيئة بيئة التعلم", "تنظيم الممارسات العملية", "الاستجابة للمؤثرات"], answer: 3, explanation: "في المدرسة السلوكية، المتعلم يركز على الاستجابة للمؤثرات وتطبيق ما تعلمه." },
-            { q: "83) التوجه الحديث لتكييف المحتوى مع الفروق الفردية:", options: ["التعلم النشط", "التعليم البنائي", "التعليم المتمايز", "التعليم الإلكتروني"], answer: 2, explanation: "التعليم المتمايز يكيف المحتوى والطرق لتلبية احتياجات الطلاب المختلفة." },
-            { q: "84) من صور التفاعل الإيجابي مع أولياء الأمور:", options: ["أهداف المقررات", "أهداف المعرفة ذات الأولوية", "خطط التدريس وتعلم الطلاب", "تنظيم العمل التعليمي والإرشادي"], answer: 2, explanation: "إطلاع أولياء الأمور على تقدم أبنائهم يعزز التفاعل الإيجابي ويدعم التعلم." },
-            { q: "85) أي طرق التعليم توفر فرصة للتعلم حسب سرعة الطالب وقدرته:", options: ["المبرمج", "التعاوني", "العصف الذهني", "الحوار والمناقشة"], answer: 0, explanation: "التعليم المبرمج يسمح لكل طالب بالتقدم وفق قدرته وسرعته الخاصة." },
-            { q: "86) أي من طرق التعليم الآتية توفر للطلاب فرصة التعلم حسب سرعته وقدرته الخاصة، بحيث يتيح لكل طالب التقدم بما يناسبه دون التأثر بسرعة أو مستوى زملائه؟", options: ["المبرمج", "التعاوني", "العصف الذهني", "الحوار والمناقشة"], answer: 0, explanation: "الإجابة الصحيحة هي (المبرمج). طريقة التعليم المبرمج تعتمد على تقسيم المحتوى إلى وحدات صغيرة يستطيع الطالب إنجازها وفق سرعته الخاصة، ويقوم بالتقدم للوحدة التالية بعد إتقان الوحدة السابقة، مما يضمن التعلم الفردي وفق القدرة والإيقاع الشخصي لكل طالب. \n\nالخيارات الأخرى غير مناسبة لسبب التالي:\n- (التعاوني): يعتمد على العمل الجماعي، وسرعة تعلم الطلاب قد تتأثر بزملائهم.\n- (العصف الذهني): يركز على توليد الأفكار ومناقشتها جماعيًا، وليس على التقدم الفردي وفق القدرة الخاصة.\n- (الحوار والمناقشة): يشجع على التفاعل والتبادل الشفهي، لكنه لا يوفر نظامًا فرديًا للطلاب حسب سرعتهم." }
-        ];
+<div class="footer">
+    <p>تم التطوير باستخدام HTML5 و CSS3 و JavaScript</p>
+</div>
 
-        // المتغيرات العامة
-        let currentPage = 0;
-        const questionsPerPage = 10;
-        const totalPages = Math.ceil(questions.length / questionsPerPage);
+<script>
+// مصفوفة الأسئلة الكاملة (86 سؤالاً)
+const questions = [
+  // الأسئلة من 1 إلى 10
+  {
+    "q": "إذا كنت تخطط لاستثارة التفكير الإبداعي لدى الطلاب، فيجب أن تكلف الطلاب بنشاطات وتطرح أسئلة تركز على التفكير:",
+    "options": ["التباعدي", "التقاربي", "الاستنباطي", "الاستقرائي"],
+    "answer": 0,
+    "explanations": {
+      "correct": "التفكير التباعدي يهدف إلى توليد أكبر عدد ممكن من الأفكار والبدائل دون النقد الفوري، وهو الأسلوب الذي يشجع التجريب والابتكار ويحرر الطلاب من قيود الحلول التقليدية.",
+      "wrong1": "التفكير التقاربي يركّز على تضييق الخيارات للوصول إلى حل واحد أمثل؛ مفيد لمهام الحلّ الدقيق لكنه يقلل من مساحات الإبداع والتوليد الحر للأفكار.",
+      "wrong2": "الاستنباط يبدأ من قواعد عامة لاستنتاج نتائج محددة؛ هو منهج منطقي مناسب للتطبيق والتحليل لكنه ليس مخصصاً لتحفيز الإنتاج الإبداعي الكمي للأفكار.",
+      "wrong3": "الاستقرائي يبني تعميمات من ملاحظات جزئية؛ يمكن أن ينتج أفكاراً جديدة لكنه يعتمد على البيانات والملاحظات أكثر من التشجيع الحر على الإبداع."
+    }
+  },
+  {
+    "q": "أراد معلم ترتيب البيئة الصفية للأطفال ذوي التوحد، وإن من أفضل الأساليب الرائدة عالمياً لتحقيق ذلك:",
+    "options": ["المنظم", "العقلي", "الجماعي", "غير المباشر"],
+    "answer": 0,
+    "explanations": {
+      "correct": "البيئة المنظمة توفر هيكلية وروتيناً واضحاً يقللان الارتباك الحسي والسلوكي لدى الأطفال ذوي التوحد، مما يسهل الانتباه والتعلم ويقلل مصادر القلق.",
+      "wrong1": "الأسلوب العقلي يركز على المحتوى المعرفي والمناهج الفكرية لكنه لا يعالج بالضرورة الاحتياجات البيئية والحسية الخاصة بذوي التوحد.",
+      "wrong2": "الأسلوب الجماعي يعتمد على التفاعل مع الأقران وهذا قد يكون مفيداً في مهارات التواصل لكنه يحتاج تكييفاً كبيراً للأطفال ذوي التوحد الذين قد يتأثرون بجوانب الفوضى الحسية.",
+      "wrong3": "النهج غير المباشر يعني التأثير عبر أنشطة ثانوية؛ مفيد في مواقف معينة لكنه لا يوفّر الاستقرار والوضوح الذي تمنحه البيئة المنظمة."
+    }
+  },
+  {
+    "q": "أي من العبارات الآتية تمثل رأياً لا حقيقة؟",
+    "options": ["أنزل القرآن بلسان عربي مبين", "تتفاوت درجات الحرارة بين منطقة وأخرى", "كثرة القراءة تسهم في نمو العقل وتزيد المعرفة", "التسامح أجل الأخلاق التي يتصف بها الإنسان"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الرابع عبارة عن رأي لأنّه تعبير عن قيمة أخلاقية وتقييم شخصي، بينما بقية العبارات إما قابلة للقياس أو مستندة إلى نصوص.",
+      "wrong1": "عبارة 'أنزل القرآن بلسان عربي مبين' تعتبر حقيقة دينية.",
+      "wrong2": "عبارة 'تتفاوت درجات الحرارة بين منطقة وأخرى' حقيقة علمية قابلة للقياس.",
+      "wrong3": "عبارة 'كثرة القراءة تسهم في نمو العقل وتزيد المعرفة' حقيقة تعليمية مدعومة بالأبحاث."
+    }
+  },
+  {
+    "q": "أسلوب يستخدم للإخبار عن قصة خيالية أو واقعية وفقا لترتيب أحداثها. العبارة تصف نوعاً من الكتابة:",
+    "options": ["التوضيحية", "الإقناعية", "السردية", "الوصفية"],
+    "answer": 2,
+    "explanations": {
+      "correct": "السردية تهتم بسرد الأحداث وشخصياتها وترتيبها الزمني لتكوين قصة خيالية أو واقعية؛ هي الوصف الأدبي للأحداث المتتابعة.",
+      "wrong1": "الكتابة التوضيحية تهدف لتفسير مفهوم أو عملية وشرحها بوضوح، وليست بالضرورة مرتبة حول أحداث زمنية متتابعة.",
+      "wrong2": "الكتابة الإقناعية تهدف لتغيير موقف القارئ أو إقناعه بفكرة معينة، وتستعمل الحجج والأدلة بدل التركيز على تسلسل الأحداث.",
+      "wrong3": "الكتابة الوصفية تركز على تصوير المشاهد والأشياء وصفاتها الحسية، وقد تصاحب السرد لكنها ليست هي نفس نوع السرد."
+    }
+  },
+  {
+    "q": "يمكن للمعلم تشجيع الطلاب على استخدام أسلوب تقويم الأقران بهدف:",
+    "options": ["استثمار زمن الحصة الدراسية", "تعزيز العلاقات الاجتماعية بين الطلاب", "تعزيز قيمة اعتماد الطالب على الآخرين", "جعل الطالب قادراً على نقد عمله وعمل الآخرين"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الهدف الأساسي لتقويم الأقران هو تنمية قدرة الطلاب على تقييم الأعمال بشكل نقدي وبناء، ما يقوّي التعلم الذاتي والتحسين المستمر.",
+      "wrong1": "استثمار زمن الحصة الدراسية قد يكون نتيجة ثانوية لكنه ليس الهدف الرئيسي.",
+      "wrong2": "تعزيز العلاقات الاجتماعية بين الطلاب يمكن أن يكون نتيجة إيجابية لكنه ليس الهدف التعليمي الأساسي.",
+      "wrong3": "تعزيز قيمة اعتماد الطالب على الآخرين قد يكون مفيداً لكنه لا يعكس بالضرورة جوهر تقويم الأقران الذي يركز على تطوير مهارات التقييم والنقد البناء."
+    }
+  },
+  {
+    "q": "طلب المعلم علي من طلابه أثناء أنشطة استخدام التقنية لإنجاز مهام تعليمية أن يوظفوا إستراتيجية التفكير الناقد:",
+    "options": ["طرح قضايا نقاشية واقتراح حلول", "استثارة تفكير الطلاب من خلال التفكر", "تقسيم الطلاب إلى مجموعات وجمع معلومات", "تقويم المواقع الإلكترونية للتمييز بين المعلومات الصحيحة وغير الصحيحة"],
+    "answer": 3,
+    "explanations": {
+      "correct": "تقويم المواقع الإلكترونية هو تطبيق واضح للتفكير الناقد عند استخدام التقنية لأنه يعلّم الطلاب كيفية فحص المصادر وتمييز الصادق من المضلل.",
+      "wrong1": "طرح قضايا نقاشية واقتراح حلول يُعَد نشاطاً مفيداً للتفكير النقدي لكنه يتركز على النقاش والحلول أكثر منه على مصدر المعلومات وتدقيقها.",
+      "wrong2": "استثارة تفكير الطلاب من خلال التفكر مفيد لكنه عام؛ لا يضمن بصورة مباشرة تطبيق مهارات التحقق والتحليل للمصادر.",
+      "wrong3": "تقسيم الطلاب إلى مجموعات وجمع المعلومات مهارة بحثية مهمة لكن قد تفتقر لعنصر النقد والتحقق الضروري للتفكير الناقد."
+    }
+  },
+  {
+    "q": "عند التخطيط لتدريس وحدة الأدب العربي الحديث، المعلم استخدم منظم متقدم للوحدة لتهيئة أذهان الطلاب:",
+    "options": ["توجيهية", "تنشيطية", "افتتاحية", "انتقالية"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الافتتاحية تهدف لتهيئة الأذهان وتهيئة الخلفية المعرفية للطلاب قبل البدء في الموضوع؛ المنظم المتقدم يعمل كافتتاحية فعّالة.",
+      "wrong1": "الأنشطة التوجيهية تعطي تعليمات وسير عمل لكن المصطلح أقل تحديداً لوظيفة تهيئة ذهن الطلاب قبل الدرس.",
+      "wrong2": "الأنشطة التنشيطية تهيئ الطلاب ذهنياً بإشراكهم لكن المنظم المتقدم يندرج غالباً تحت افتتاحية أوسع.",
+      "wrong3": "الأنشطة الانتقالية تربط بين أجزاء الدرس أو بين حصتين ولا تصف بالضرورة التهيئة الأولية للوحدة."
+    }
+  },
+  {
+    "q": "أعلن المعلم نايف عن دورة استخدام الحاسوب، ما التصرف الأنسب للمعلم عبد الله صاحب الخبرة:",
+    "options": ["حضور الدورة والمشاركة بفاعلية", "الاعتذار عن عدم حضور الدورة", "حضور الدورة مجاملة بدون مشاركة", "الاعتذار لقناعته بأفضلية خبرته"],
+    "answer": 0,
+    "explanations": {
+      "correct": "المشاركة الفاعلة هي التصرف المهني الأمثل لأنها تدعم التعلم التشاركي وتسمح لخبرة عبد الله أن تفيد الزملاء.",
+      "wrong1": "الاعتذار عن عدم حضور الدورة مبرر أحياناً إذا كانت هناك موانع لكن قد يفقد فرصة التأثير الإيجابي على المجموعة.",
+      "wrong2": "حضور الدورة مجاملة بدون مشاركة يهدر فرصة المساهمة ويقلل من قيمة الدورة للآخرين.",
+      "wrong3": "التصريح بتفوق ذاتي قد يبدو متعالياً؛ الأفضل أن يشارك بخبرة بشكل بنّاء بدل الاعتذار."
+    }
+  },
+  {
+    "q": "من سمات المتحدث الجيد:",
+    "options": ["يتنبه لردود أفعال الجمهور", "يكثر من الشواهد الخارجية", "يبتعد عن النقاش والحوار", "يوصي ويشير بيده كثيراً"],
+    "answer": 0,
+    "explanations": {
+      "correct": "المتحدث الجيد يقرأ جمهورَه ويعدل أسلوبه بناءً على ردود الفعل؛ لذلك الانتباه لردود الأفعال سمة أساسية.",
+      "wrong1": "الشواهد قد تدعم الرسالة لكن الإفراط قد يشوش على الوضوح أو يجعل الكلام طويلاً.",
+      "wrong2": "تجنب النقاش يقلل من التفاعل ويجعل الإلقاء أحادي الجانب، وهو ليس سمة إيجابية دائماً.",
+      "wrong3": "الإيماءات مفيدة لكن الإفراط في الإشارة قد يشتت الانتباه ويقلل من المصداقية."
+    }
+  },
+  {
+    "q": "أي من النشاطات غير الصفية لا يصلح لتعزيز قضية المحافظة على المباني التراثية؟",
+    "options": ["حث أصحاب المباني التراثية على تجديد مظهرها", "تقديم مبادرات لتحويل المباني التراثية إلى مبان حديثة", "إعداد فيلم وثائقي عن المباني التراثية", "توزيع مطويات للتوعية بأهمية المباني التراثية"],
+    "answer": 1,
+    "explanations": {
+      "correct": "الخيار الثاني يتعارض مع مفهوم المحافظة لأن تحويل المباني التراثية إلى حديثة يقضي على قيمتها التاريخية.",
+      "wrong1": "التجديد المحافظ الذي يحافظ على الطابع التاريخي يمكن أن يحسن حفظ المبنى مع الحفاظ على قيمته التراثية.",
+      "wrong2": "الفيلم الوثائقي وسيلة قوية للتوعية وإبراز قيمة المباني وأسباب الحفاظ عليها.",
+      "wrong3": "المطويات توعوية فعّالة لنشر المعرفة لدى الجمهور المحلي وتشجيع المشاركة."
+    }
+  },
+  // الأسئلة من 11 إلى 20
+  {
+    "q": "مصدر كلمة (تعلم):",
+    "options": ["علم", "تعلم", "علوم", "تعليم"],
+    "answer": 1,
+    "explanations": {
+      "correct": "مصدر الفعل 'تعلم' هو نفسه 'تعلم' بصيغة المصدر، لأن المصدر يعبر عن الفعل العام بلا زمن.",
+      "wrong1": "كلمة 'علم' اسم يدل على المعرفة نفسها وليس المصدر الصرف للفعل 'تعلم'.",
+      "wrong2": "'علوم' جمع 'علم' يشير إلى مجالات المعرفة المتعددة لكنه ليس مصدر الفعل المباشر هنا.",
+      "wrong3": "'تعليم' مصدر للفعل 'علّم' (أي جعل غيره يتعلم)، وهو مختلف عن 'تعلم' الذي هو فعل الشخص المتلقي للمعرفة."
+    }
+  },
+  {
+    "q": "ضع علامات الترقيم المناسبة للجملة: أعجب معلم بإجابة أحد طلابه فقال ( ) ما أجمل هذه الإجابة ( )",
+    "options": [":  !", "/  !", "،  /", "/  ."],
+    "answer": 0,
+    "explanations": {
+      "correct": "النقطتان تستخدمان قبل الكلام المنقوش للدلالة على كلام مباشر، وعلامة التعجب تناسب التعجب العاطفي في العبارة.",
+      "wrong1": "الشكل غير محدد وواضح؛ قد يكون خاطئاً لأن النقطتين مفقودتان أو وضع الرموز غير صحيح.",
+      "wrong2": "الفاصلة لا تعرض اقتباساً مباشراً بالشكل المناسب، والجزء الثاني غير مكتمل.",
+      "wrong3": "النمط غير واضح ولا يعبر عن الاقتباس المتبوع بعلامة تعجب."
+    }
+  },
+  {
+    "q": "كتبت الألف المتطرفة خطأ في كلمة:",
+    "options": ["عصا", "رحى", "قفى", "طنطا"],
+    "answer": 3,
+    "explanations": {
+      "correct": "كثيرون يخطئون بكتابة 'طنطا' بألف مقصورة أو مفتوحة، والصحيح أنها تُكتب بواو ونهاية أصلها 'طنطا'.",
+      "wrong1": "كلمة 'عصا' صحيحة كتابتها بألف منسوخة لأن أصل الكلمة 'عصا' معروفة ومقبولة.",
+      "wrong2": "كلمة 'رحى' صحيحة بألف في نهايتها حسب القواعد الإملائية المعتادة.",
+      "wrong3": "كتابة الألف في 'قفى' قد تكون صحيحة بحسب أصل الكلمة في بعض السياقات، لكنها ليست المثال الأكثر شيوعاً للخطأ."
+    }
+  },
+  {
+    "q": "أراد معلم تصنيف المعلومات والبيانات لاستبانة على 1000 طالب وتحليلها للوصول لنتائج:",
+    "options": ["Word", "Visio", "Excel", "Access"],
+    "answer": 2,
+    "explanations": {
+      "correct": "Excel قوي في جمع البيانات، تنظيمها، إجراء العمليات الإحصائية الأساسية، وإنشاء الجداول والرسوم البيانية لتلخيص نتائج استبانة ضخمة بسهولة.",
+      "wrong1": "Word مناسب لكتابة التقارير والنصوص لكنه ضعيف في التعامل مع قواعد البيانات الكبيرة والتحليل الإحصائي.",
+      "wrong2": "Visio أداة للرسم التخطيطي والخرائط الذهنية وليس لتحليل البيانات الإحصائية أو جداول الاستبانة.",
+      "wrong3": "Access إدارة قواعد بيانات جيدة للمشروعات الكبيرة والمعقدة؛ لكنها تتطلب إعداداً أكبر وقد لا تكون الخيار الأبسط للمعلم."
+    }
+  },
+  {
+    "q": "يمكن التنبؤ بأن درجات الطالب الذي حصل على درجة ذكاء 110 بأنها:",
+    "options": ["تبقى كما هي", "ترتفع بالعمر", "ترتفع بالخبرات المنظمة", "تنخفض بالعمر"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الخبرات المنظمة هي المتغير الأكثر فعالية لتحسين الأداء المعرفي والدرجات العملية؛ لذا هذا الخيار الأدق.",
+      "wrong1": "القدرات الأساسية قد تكون مستقرة نسبياً لكن الأداء الأكاديمي يتأثر بعوامل بيئية وتعليمية.",
+      "wrong2": "العمر وحده لا يضمن تحسناً في درجات الذكاء؛ دون الخبرات المنظمة قد لا يتحسّن الأداء.",
+      "wrong3": "الانخفاض مرتبط بعوامل صحية أو إهمال التحفيز، لكنه ليس قاعدة عامة."
+    }
+  },
+  {
+    "q": "طلب معلم من الطلاب تصفح الدرس سريعاً ثم إعادة قراءته بعمق مع تحديد المصطلحات ورسم مخطط:",
+    "options": ["المعرفي", "السلوكي", "الاجتماعي", "الشخصي"],
+    "answer": 0,
+    "explanations": {
+      "correct": "المدخل المعرفي يركّز على فهم المفاهيم وتنظيم المعرفة وتطوير استراتيجيات عقلية مثل التلخيص والتصنيف، وهو ما يحقق نشاط التصفح ثم القراءة المعمقة وتحديد المصطلحات.",
+      "wrong1": "المدخل السلوكي يركز على الملاحظة والتعزيز وتكرار السلوكيات ولا يصف بدقة الأنشطة المعرفية الداخلية.",
+      "wrong2": "المدخل الاجتماعي يعنى بالتعلم من خلال التفاعل والمرجعية الاجتماعية، وهو أقل ارتباطاً بمهمة فردية لتحليل نص.",
+      "wrong3": "المدخل الشخصي يتناول الجوانب الذاتية والانفعالية للفرد، لكنه ليس المصطلح الأدق للنشاط المعرفي المطلوب."
+    }
+  },
+  {
+    "q": "إذا لاحظت أن ورقتين اختباريتين لهما نفس الأجوبة والطالبان أنكروا الغش، أي إجراء مناسب؟",
+    "options": ["تعطيهم صفراً", "تطلب إعادة الاختبار", "تصححها وتحولها لإدارة المدرسة", "تحول للجنة الاختبار قبل التصحيح"],
+    "answer": 3,
+    "explanations": {
+      "correct": "تحويل الورقتين للجنة الاختبار يضمن تحقيقاً رسمياً ومحايداً قبل اتخاذ أي عقوبات، وهذا الإجراء يحافظ على العدالة.",
+      "wrong1": "معاقبة فورية قد تكون ظالمة إذا لم تُجرَ تحقيقات رسمية تثبت الغش؛ الإجراءات تحتاج التثبت أولاً.",
+      "wrong2": "إعادة الاختبار قد تكون حلاً بعد التأكد من وجود غش، لكنها ليست الإجراء الأولي الإداري الصحيح دون تحقيق.",
+      "wrong3": "تصحيح الورقات ثم تحويلها يعطي مظهراً بالإجراء لكن يفوّت خطوة التحقيق المتخصص قبل اتخاذ قرار التأديب."
+    }
+  },
+  {
+    "q": "استراتيجية لماذا؟ وماذا؟ وكيف؟ للعالم:",
+    "options": ["هيرمان", "كولب", "ماكافي", "مكارثي"],
+    "answer": 1,
+    "explanations": {
+      "correct": "ديفيد كولب طرح نموذج التعلم التجريبي الذي يحفز التساؤل المنهجي (لماذا؟ ماذا؟ كيف؟) في دورة من التجربة، التأمل، المفاهيم والتطبيق.",
+      "wrong1": "نهج هيرمان يركز على نماذج التفكير ومناطق الدماغ المختلفة لكنه ليس مرتبطاً مباشرة بتسلسل لماذا؟ ماذا؟ كيف؟",
+      "wrong2": "ماكافي مرتبط بأطر تقنية أو سيبرانية أكثر من كونه إطاراً تربوياً للتساؤل المنهجي.",
+      "wrong3": "مكارثي قد يشير إلى مؤلفين أو نظريات أخرى لكنه ليس صاحب استراتيجية التساؤل المعروفة هنا."
+    }
+  },
+  {
+    "q": "من مهارات القراءة الجهرية التي تميزها عن الصامتة:",
+    "options": ["الطلاقة", "الضبط السليم", "تحريك الشفتين", "إدراك رسم العبارة"],
+    "answer": 1,
+    "explanations": {
+      "correct": "الضبط يتعلق بالتلفظ الدقيق، الإيقاع، الوقف والابتداء، وهو عنصر يميّز القراءة الجهرية حيث يسمعه الآخرون مباشرة.",
+      "wrong1": "الطلاقة موجودة في القراءة الجهرية لكنها قابلة للتحقق أيضاً في القراءة الصامتة من خلال السرعة والانسيابية الداخلية.",
+      "wrong2": "تحريك الشفتين قد يظهر في الجهرية لكنه ليس مهارة مرغوبة أو مميزة بحد ذاته، وقد يكون علامة على ضعف الطلاقة.",
+      "wrong3": "فهم الرسم المكتوب مهم في كلا نوعي القراءة لكن ليس فارقاً يميز الجهرية عن الصامتة."
+    }
+  },
+  {
+    "q": "عند التخطيط لدرس 'حقوق وواجبات' لموضوع ضعف روابط الصلة بين أبناء الحي، أنسب نشاط للطلاب:",
+    "options": ["كتابة مقال عن أسباب ضعف الروابط واقتراح الحلول", "جمع قصص ونوادر عن الجيرة الحسنة", "تنظيم مسابقة 'أحب جاري'", "شرح حديث 'مازال جبريل يوصيني بالجار'"],
+    "answer": 0,
+    "explanations": {
+      "correct": "كتابة مقال تطلب تحليل الأسباب، التفكير النقدي، واقتراح حلول عملية قابلة للتطبيق، مما يعزز مهارات التفكير والتخطيط لدى الطلاب.",
+      "wrong1": "جمع قصص ونوادر عن الجيرة الحسنة نشاط توعوي جيد يزرع القيم لكنه أقل مباشرة في تطوير قدرات الطلاب على اقتراح حلول معاصرة.",
+      "wrong2": "فعالية تحفيزية وقد تعزز الانتماء لكنها قد تفتقر للبعد التحليلي والعملي الذي يوفره كتابة المقال.",
+      "wrong3": "نشاط ديني توجيهي مهم للقيم لكنه أقل تركيزاً على التحليل العملي لأسباب الضعف وسبل الحل."
+    }
+  },
+  // الأسئلة من 21 إلى 30
+  {
+    "q": "أسلوب يستخدم للإخبار عن قصة خيالية أو واقعية وفق ترتيب أحداثها. النوع:",
+    "options": ["التوضيحية", "الإقناعية", "السردية", "الوصفية"],
+    "answer": 2,
+    "explanations": {
+      "correct": "السردية تختص بسرد الأحداث والشخصيات بالتسلسل الزمني أو المنطقي، سواء كانت القصة خيالية أو واقعية.",
+      "wrong1": "الكتابة التوضيحية تهدف للتفسير والشرح، وليس بالضرورة لسرد أحداث متتابعة.",
+      "wrong2": "الكتابة الإقناعية تركز على الحجج لإقناع القارئ بفكرة معينة ولا تقتصر على ترتيب أحداث قصة.",
+      "wrong3": "الكتابة الوصفية تركز على وصف المشاهد والأوصاف الحسّية، وقد تدخل في السرد لكنها ليست هدفها الأساسي ترتيب الأحداث."
+    }
+  },
+  {
+    "q": "يؤدي المعلم دورًا في تنمية المجتمع المحلي، أي مما يلي ليس في هذا المجال؟",
+    "options": ["المساعدة في برامج محو الأمية", "نشر الثقافة العلمية", "تنمية الوعي البيئي", "بناء المفاهيم العلمية"],
+    "answer": 3,
+    "explanations": {
+      "correct": "بناء المفاهيم العلمية يعتبر نشاطاً صفياً تربوياً داخلياً يركز على تعلم الطلاب داخل الصف أكثر منه نشاطاً تنموياً مجتمعياً مباشراً.",
+      "wrong1": "محو الأمية نشاط مجتمعي مباشر يساهم به المعلم لسد فجوة التعليم الأساسي في المجتمع.",
+      "wrong2": "نشر المعرفة والوعي العلمي يندرج ضمن دور المعلم في خدمة المجتمع ورفع الكفاءة.",
+      "wrong3": "المعلم يمكن أن يقود حملات توعية ومشروعات بيئية محلية كجزء من دوره المجتمعي."
+    }
+  },
+  {
+    "q": "قال المتنبي: يملأ الأفعال رأياً وحكمة ونادرة … ويغضب. الكلمتان لتكملة البيت:",
+    "options": ["فتا، يرضا", "فتا، يرضى", "فتى، يرضا", "فتى، يرضى"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الصياغة الصحيحة إملائياً ونحوياً: 'فتى يَرضى' (فتى تامة الألفاظ مع فعل مضارع صحيح).",
+      "wrong1": "الكتابة الهجائية قد تبدو صحيحة لكن 'فتا' قد لا تراعي الشكل الإملائي الصحيح لكلمة 'فتى'.",
+      "wrong2": "استخدام ألف بدل ياء في 'فتى' غير مقبول هنا وفق القواعد الإملائية للشعر العربي.",
+      "wrong3": "تركيب نحوي غير مناسب لأن الفعل 'يرضى' يتطلب ياء في أواخره للاتفاق مع السياق."
+    }
+  },
+  {
+    "q": "كل مما يلي من خصائص الكتابة الوظيفية ما عدا:",
+    "options": ["سهولة العبارة", "الاستشهاد بالحقائق", "الاعتماد على الخيال", "اختفاء شخصية الكاتب"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الاعتماد على الخيال ليس سمة للكتابة الوظيفية التي تهدف إلى الوضوح والموضوعية وليس الابتكار الأدبي.",
+      "wrong1": "الكتابة الوظيفية تميزها لغة واضحة وميسرة لتوصيل المعلومات عملياً.",
+      "wrong2": "تعتمد الكتابة الوظيفية على بيانات وحقائق لتوضيح الرسائل والإجراءات.",
+      "wrong3": "في الكتابة الوظيفية يغيب الأسلوب الشخصي لصالح النبرة الرسمية والمحايدة التي تركز على الرسالة."
+    }
+  },
+  {
+    "q": "تنمية مهارات الطالب في إدارة الوقت تتم من خلال:",
+    "options": ["تدريبه على وضع خطة زمنية لتنفيذ الأنشطة", "إكسابه المهارات المعرفية المتعلقة بأهمية الوقت", "مساعدته على إنهاء النشاط في الوقت المحدد", "منحه الحرية في تحديد الوقت لتنفيذ الأنشطة"],
+    "answer": 0,
+    "explanations": {
+      "correct": "تخطيط الوقت مهارة عملية تعلم الطالب كيفية تقسيم المهام وتقدير الزمن المطلوب وإنجاز العمل بكفاءة.",
+      "wrong1": "فهم أهمية الوقت مهم لكنه نظري وحده لا يكفي لتنمية مهارة الإدارة العملية.",
+      "wrong2": "الدعم مفيد لكنه يظل توجيهاً مؤقتاً دون تعليم أدوات التخطيط الذاتي.",
+      "wrong3": "الحرية مفيدة لتطوير الاستقلالية لكن قد تحتاج إلى إرشاد وتدريب لتجنب التسويف وسوء التقدير."
+    }
+  },
+  {
+    "q": "أحد الطلاب استهزاء بإجابة زميله، الإجراء التربوي الأنسب:",
+    "options": ["تأديبه أمام الزملاء", "تحويل السؤال إليه مباشرة", "إيقافه وطلب الاعتذار فورًا", "استدعاؤه على انفراد بعد الحصة وتوضيح خطأه"],
+    "answer": 3,
+    "explanations": {
+      "correct": "التعامل على انفراد يضمن تصحيح السلوك بأسلوب بناء يحفظ كرامة الطالب ويحقق تغيّراً سلوكياً دائماً.",
+      "wrong1": "التأديب العلني قد يسبب إحراجاً ويزيد مقاومة السلوك بدل إصلاحه.",
+      "wrong2": "قد يحرج الطالب المتنمر أمام الآخرين ولا يحقق تعلماً سلوكياً معمقاً.",
+      "wrong3": "قد يكون ضرورياً في حالات معينة لكن الأفضل تحقيق فهم أعمق للسلوك أولاً."
+    }
+  },
+  {
+    "q": "المدرسة قدمت اختباراً موحداً، تفاوت تقدير المعلمين يدل على افتقار الاختبار إلى:",
+    "options": ["الصدق", "الثبات", "الشمولية", "الموضوعية"],
+    "answer": 1,
+    "explanations": {
+      "correct": "الثبات يقيس مدى حصول نفس النتائج عند تكرار التطبيق أو بتقدير مختلف؛ تفاوت تقدير المعلمين يشير مباشرة إلى ضعف الثبات.",
+      "wrong1": "الصدق يقيس ما إذا كان الاختبار يقيس فعلاً ما يُفترض قياسه، ولم يُذكر هنا أن الهدف مختلف.",
+      "wrong2": "الشمولية تقيس تغطية المحتوى لكن التفاوت بين المعلمين ليس دليلاً مباشراً على نقص الشمولية.",
+      "wrong3": "الموضوعية مرتبطة بوضوح معايير التصحيح، ونقصها قد يسهم في التفاوت، لكنه مؤشر أقل تحديداً من مقياس الثبات في هذا السياق."
+    }
+  },
+  {
+    "q": "قبل تنفيذ المشروعات البحثية، المعلمة أعطت سلم تقدير للطالبات، النتيجة المتوقعة:",
+    "options": ["ارتفاع جودة المشروعات", "زيادة الوقت اللازم", "انخفاض مصداقية التصحيح", "شعور الطالبات بالإحباط"],
+    "answer": 0,
+    "explanations": {
+      "correct": "توفير معايير واضحة يمكّن الطالبات من معرفة توقعات التقييم ويساعدهن على توجيه جهودهن نحو المعايير المطلوبة، مما يرفع جودة الأعمال.",
+      "wrong1": "ربما يتطلب إعداد السلم وقتاً مسبقاً لكنه لا يؤثر سلباً على جودة المشروعات بل قد يوفر وضوحاً يقلل الوقت المهدور لاحقاً.",
+      "wrong2": "وجود سُلّم تقدير واضح يزيد من مصداقية التصحيح لأنه يجعل التقييم موضوعياً وشفافاً.",
+      "wrong3": "العكس؛ عندما يعرفن المعايير بوضوح تقل مشاعر الإحباط لأنهن يملكن خريطة طريق لتحسين أعمالهن."
+    }
+  },
+  {
+    "q": "من سمات الشخصية لجذب انتباه المستمعين:",
+    "options": ["المحافظة على وتيرة صوت واحدة", "التواصل البصري مع المستمعين", "محاولة الخروج عن الموضوع", "استخدام الكلمات الغريبة"],
+    "answer": 1,
+    "explanations": {
+      "correct": "التواصل البصري يبني علاقة وثقة ويزيد تركيز الجمهور ويسهم في إيصال الرسالة بفعالية.",
+      "wrong1": "وتيرة صوت ثابتة قد تبدو مملة وتقلل من ديناميكية الإلقاء.",
+      "wrong2": "الخروج عن الموضوع يفقد المتحدث مصداقيته ويشتت الانتباه.",
+      "wrong3": "قد يثير الفضول أحياناً لكنه قد يربك المستمعين إن لم يكن مناسباً للسياق."
+    }
+  },
+  {
+    "q": "جلسة العصف الذهني لاقتراح أسلوب يدعم توقعات الطلاب العالية، كل مما يلي يساعد عدا:",
+    "options": ["مقارنة الأداء مع الأقران", "استخدام تكليفات متنوعة", "تقديم التغذية الراجعة", "التعرف على أوجه التميز لدى الطلاب"],
+    "answer": 0,
+    "explanations": {
+      "correct": "المقارنة قد تحفز التنافس غير الصحي وتخفض الدافعية لدى من يقارنون لأنفسهم سلبياً؛ لذلك قد تكون مضرة في بعض السياقات.",
+      "wrong1": "التنوع يسمح بتلبية احتياجات قدرات مختلفة ويحفز الطلاب لتحقيق توقعات أعلى.",
+      "wrong2": "التغذية الراجعة المستمرة تساعد الطلاب على ضبط الأداء وتحسينه للوصول لمستويات أعلى.",
+      "wrong3": "معرفة نقاط القوة تسمح بتدعيمها وبناء أهداف طموحة واقعية لكل طالب."
+    }
+  },
+  // الأسئلة من 31 إلى 40
+  {
+    "q": "أي عمليات التعلم ذو المعنى يستهدفها المعلم عند طلب تحديد نقاط التشابه والاختلاف؟",
+    "options": ["الدعم والتسكيل", "التوفيق التكاملي", "التمايز التقدمي", "التنظيم المتسلسل"],
+    "answer": 1,
+    "explanations": {
+      "correct": "التوفيق التكاملي يعني ربط الأفكار والمفاهيم ببعضها ومقارنة عناصرها—وهو ما يحدث عند تحديد أوجه الشبه والاختلاف.",
+      "wrong1": "يركز على تقديم مساندة ومهام مبسطة للمتعلم لكن تحديد التشابه والاختلاف له وظيفة معرفية أعلى.",
+      "wrong2": "يتعلق بتقديم مستويات تعليمية مختلفة وفق قدرات الطلاب وليس بالضرورة بالمقارنة المفاهيمية.",
+      "wrong3": "يركز على ترتيب التعلم بشكل متدرج زمنياً أو منطقياً وليس على مقارنة المفاهيم."
+    }
+  },
+  {
+    "q": "من أشهر البرامج التي تساعد المعلم على تدوين بيانات الطلاب وإعداد التقارير عبر الرسوم البيانية:",
+    "options": ["Word", "Visio", "Excel", "Access"],
+    "answer": 2,
+    "explanations": {
+      "correct": "قوة Excel في تنظيم الجداول، إجراء الحسابات، واستخراج الرسوم البيانية والتقارير الإحصائية تجعل منه الخيار الأفضل للمعلمين.",
+      "wrong1": "برنامج لمعالجة النصوص ومناسب للتقارير النصية لكنه محدود في التعامل مع جداول البيانات والرسوم البيانية الديناميكية.",
+      "wrong2": "أداة لإنشاء المخططات والرسوم التخطيطية لكنها ليست متخصصة في تحليل البيانات أو الجداول الإحصائية.",
+      "wrong3": "قاعدة بيانات قوية للمشروعات الكبيرة لكنها أكثر تعقيداً مقارنةً بـ Excel لحاجات المعلم اليومية."
+    }
+  },
+  {
+    "q": "كلمة 'غير أن' تدل على:",
+    "options": ["الاستدراك", "الاستثناء", "التذكير", "التعليل"],
+    "answer": 0,
+    "explanations": {
+      "correct": "'غير أن' تستخدم للاستدراك—أي لإضافة معلومات مخالفة أو مغايرة لما قيل سابقاً، وتحوّل اتجاه الجملة أو تضيف استثناء.",
+      "wrong1": "الاستثناء يُعبَّر عنه بأدوات مثل 'إلا' و'سوى' وليس 'غير أن' بالضرورة.",
+      "wrong2": "التذكير له أدوات لغوية أخرى؛ 'غير أن' ليست أداة تذكير.",
+      "wrong3": "التعليل يستعمل 'لأن' أو 'لذلك'، بينما 'غير أن' تحمل معنى استدراكي."
+    }
+  },
+  {
+    "q": "أحمد: اللغة العربية أكثر المفردات، بدر: أكثر انتشاراً، التحليل:",
+    "options": ["كلاهما محايدان", "كلاهما متحيزان", "أحمد محايد، بدر متحيز", "أحمد متحيز، بدر محايد"],
+    "answer": 3,
+    "explanations": {
+      "correct": "وفق نص السؤال الأصلي والتحليل المطلوب، الخيار الرابع مختار لتوافقه مع تفسير المؤلف بأن أحمد يعرض رأياً متحيزاً بينما بدر محايد.",
+      "wrong1": "ليسا محايدين لأن كل تصريح يحمل وجهة نظر أو معيار مختلف.",
+      "wrong2": "ليسا بالمعنى الكامل متحيزين نفسياً؛ أحدهما يقدم حقيقة قابلة للقياسات والأخر رأي قابل للنقاش.",
+      "wrong3": "أحمد يعبر عن ادعاء يتطلب دليل (قد يكون محايداً إن استند لقياسات)، بينما بدر يقدم حكماً يعتمد على معيار شخصي حول الانتشار."
+    }
+  },
+  {
+    "q": "قال الوالد لابنه: ما أجملك. علامات الترقيم المناسبة:",
+    "options": ["، -", "، - ؟", ": - .", ": - !"],
+    "answer": 3,
+    "explanations": {
+      "correct": "النقطتان تسبق الكلام المنقول وعلامة التعجب في نهاية العبارة توضح الانفعال العاطفي، لذا الصيغة الأنسب.",
+      "wrong1": "الفاصلة قد تستخدم قبل الكلام المنقول لكن ليست أفضل من النقطتين لاقتباس كلام مباشر، ولا تعبر عن التعجب النهائي.",
+      "wrong2": "استخدام علامة السؤال غير مناسب لأن الجملة تعجبية وليست استفهامية.",
+      "wrong3": "النقطتان مناسبتان لبدء الكلام المنقول لكن النقطة في النهاية لا تعكس التعجب الموجود في العبارة."
+    }
+  },
+  {
+    "q": "كل الكلمات مترادفة ما عدا:",
+    "options": ["شامخ وحافل", "سامق وعالي", "روابط ووشائج", "شظف وضيق"],
+    "answer": 3,
+    "explanations": {
+      "correct": "على الرغم من أن 'شظف' و'ضيق' قد يتقاطعان في بعض الاستخدامات، إلا أنهما ليستا مترادفتين بدقة؛ 'شظف' تدل على قسوة الحال أو قلة الموارد أكثر من مجرد 'ضيق'.",
+      "wrong1": "كلمتا 'شامخ' و'حافل' تقتربان أحياناً بمعاني العلو والتميز، ويمكن أن تُعدا مرادفتين سياقياً.",
+      "wrong2": "هاتان الكلمتان متقاربتان في الدلالة على الارتفاع أو السمو.",
+      "wrong3": "كلمة 'روابط' و'وشائج' تُستخدمان للدلالة على الاتصالات والعلاقات، وهما مترادفتان سياقياً."
+    }
+  },
+  {
+    "q": "يستخدم المتعلم أسلوب حل المشكلات للوصول إلى هدف معين، عندما يكون ذلك الهدف غير متاح أمامه. الضمير (الهاء) في 'أمامه' يعود على:",
+    "options": ["الهدف", "المتعلم", "الوصول", "متاح"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الهاء في 'أمامه' تعود على الهدف الذي هو موضوع البحث أو المسعى، أي الشيء غير المتاح أمام المتعلم.",
+      "wrong1": "لو كان الضمير يعود على المتعلم لكانت الصياغة تدل على أنه أمام المتعلم، لكن النص يحدد أن الهدف هو غير المتاح.",
+      "wrong2": "لا يعود الضمير لفعل أو مصدر ('الوصول') في هذا السياق، بل لاسم مذكور سابقاً.",
+      "wrong3": "'متاح' وصف لحالة الشيء وليس مرجعاً للضمير الهاء."
+    }
+  },
+  {
+    "q": "جميع الكلمات مصادر عدا:",
+    "options": ["وقوف", "ابتهال", "تناصح", "استثار"],
+    "answer": 3,
+    "explanations": {
+      "correct": "شكلة هذه الكلمة أقرب للفعل أو المشتق وليس مصدراً معيارياً؛ التركيب غير متطابق مع بقية أمثلة المصادر.",
+      "wrong1": "مصدر يدل على الفعل وُقُوف، وهو اسم مصدر شائع.",
+      "wrong2": "مصدر يدل على فعل الابتهال، وهو صيغة مصدرية صحيحة.",
+      "wrong3": "مصدر مشتق من الفعل المتبادل 'تناصح' ويستخدم كمصدر."
+    }
+  },
+  {
+    "q": "الفعل يقارن ينتمي إلى:",
+    "options": ["التحليل", "التطبيق", "التقويم", "التركيب"],
+    "answer": 0,
+    "explanations": {
+      "correct": "المقارنة عملية تحليلية تهدف لاستخلاص العلاقات والاختلافات، لذا الفعل 'يقارن' يندرج تحت التحليل.",
+      "wrong1": "التطبيق يعني تنفيذ المعرفة في مواقف جديدة وليس المقارنة بينها.",
+      "wrong2": "التقويم يعني إصدار حكم على قيمة أو جودة شيء ما.",
+      "wrong3": "التركيب يعني تجميع عناصر لتكوين كل جديد ومتكامل."
+    }
+  },
+  {
+    "q": "أراد معلم إثارة التفكير بحيث يتعرف الطلاب على المفهوم ثم الأمثلة، الأسلوب التدريسي:",
+    "options": ["الحوارية", "القياسية", "الاكتشاف", "حل المشكلات"],
+    "answer": 2,
+    "explanations": {
+      "correct": "طريقة الاكتشاف تشجع الطلاب على الوصول للمفهوم أولاً بأنفسهم ثم عرض أمثلة تؤكد الفهم، فتزيد التملك المعرفي والاستيعاب.",
+      "wrong1": "الأسلوب الحواري مفيد في تبادل الأفكار لكنه قد يبدأ بالسؤال وليس بالتمكين الذاتي لاكتشاف المفهوم أولاً.",
+      "wrong2": "الأسلوب القياسي تقليدي ويعتمد على تقديم القاعدة ثم التطبيق وليس على اكتشاف المفهوم بنفس الطالب.",
+      "wrong3": "حل المشكلات يركز على تطبيق المفاهيم لإيجاد حلول، لكنه يبدأ عادةً بمشكلة وليس بتعريف المفهوم ثم الأمثلة."
+    }
+  },
+  // الأسئلة من 41 إلى 50
+  {
+    "q": "إذا أراد المعلم تقويم امتلاك الطلاب لمهارات التلاوة والتجويد في القرآن الكريم، الأداة الأكثر دقة هي:",
+    "options": ["سلم التقدير", "الاختبار الكتابي", "السجل القصصي", "سجل وصف التعلم للطالب"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الصحيح هو 'سجل وصف التعلم للطالب' لأنه يسمح للمعلم بملاحظة وتسجيل أداء كل طالب أثناء التلاوة مباشرة، مع تقييم دقيق للمهارات الفردية مثل النطق، التجويد، وضبط الحروف.",
+      "wrong1": "سلم التقدير يحدد مستويات الأداء لكنه لا يلتقط التفاصيل الدقيقة لكل طالب.",
+      "wrong2": "الاختبار الكتابي غير مناسب لمهارات التلاوة العملية.",
+      "wrong3": "السجل القصصي يوثق الأحداث لكنه لا يقيم المهارات بدقة."
+    }
+  },
+  {
+    "q": "للحفاظ على دافعية الطلاب بعد خبرات إخفاق، استنادًا للنظريات المعرفية، يجب:",
+    "options": ["عزو الفشل للجهد المبذول", "تعزيز أي تقدم", "توفير بيئة صفية آمنة", "تشجيع تكرار المحاولات"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الخيار الصحيح 'عزو الفشل للجهد المبذول' يعزز مفهوم أن التعلم يمكن تحسينه بالعمل والمثابرة.",
+      "wrong1": "تعزيز أي تقدم مفيد لكنه عام ولا يغير تفسير الطالب للفشل.",
+      "wrong2": "توفير بيئة صفية آمنة ضروري لكنه لا يكفي لوحده.",
+      "wrong3": "تشجيع تكرار المحاولات فعال إذا فهم الطالب سبب الفشل."
+    }
+  },
+  {
+    "q": "للفروق الفردية أثر في التعلم، أكبر مدى للفروق يظهر في أي الصفات؟",
+    "options": ["الجسمية", "الشخصية", "المعرفية", "العقلية"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الخيار الصحيح 'المعرفية' لأن قدرات الطلاب على التحليل والفهم وحل المشكلات تختلف بدرجة كبيرة بينهم.",
+      "wrong1": "الفروق الجسمية محدودة نسبياً.",
+      "wrong2": "الفروق الشخصية مهمة لكنها لا تحدد أداء التعلم مباشرة.",
+      "wrong3": "الفروق العقلية عامة وغامضة بالنسبة للقياس العملي للقدرات."
+    }
+  },
+  {
+    "q": "التغذية الراجعة حول تقدم الطلاب أثناء الوحدة، نوع التقويم:",
+    "options": ["تشخيصي", "تكويني", "نهائي", "قبلي"],
+    "answer": 1,
+    "explanations": {
+      "correct": "الخيار الصحيح 'تكويني' لأن التقويم التكويني يركز على إعطاء الطلاب والمُعلم تغذية راجعة مستمرة أثناء التعلم لتصحيح الأخطاء وتعزيز الفهم.",
+      "wrong1": "التقويم التشخيصي يستخدم قبل بداية التعلم لتحديد المستوى.",
+      "wrong2": "التقويم النهائي يقيم بعد انتهاء الوحدة.",
+      "wrong3": "التقويم القبلي يحدد المعرفة المسبقة."
+    }
+  },
+  {
+    "q": "بعد مراجعة المعلم لما قدمه والتفكر فيه، نوع التقويم:",
+    "options": ["ذاتي", "تشخيصي", "تكويني", "ختامي"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الخيار الصحيح 'ذاتي'، لأن التقويم الذاتي يتيح للمعلم تقييم أدائه الشخصي والتفكير في تحسين طرق التدريس.",
+      "wrong1": "التقويم التشخيصي قبل الدرس.",
+      "wrong2": "التقويم التكويني أثناء العملية التعليمية للطلاب.",
+      "wrong3": "التقويم الختامي بعد انتهاء الوحدة لتقييم النتائج."
+    }
+  },
+  {
+    "q": "التطبيقات التي يمكن للمعلم استخدامها للتواصل الإيجابي مع أولياء الأمور:",
+    "options": ["Google Classroom", "School Circle", "Class Dojo", "Remind"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الصحيح 'Remind' لأنه يسمح بإرسال رسائل دورية ومتابعة تقدم الطلاب بشكل بسيط وسريع.",
+      "wrong1": "Google Classroom مناسب لتوزيع الواجبات وليس للتواصل الشخصي الدائم.",
+      "wrong2": "School Circle يركز على الشبكات الاجتماعية المدرسية.",
+      "wrong3": "Class Dojo أكثر توجيهًا لتعزيز السلوك وليس للتواصل المستمر."
+    }
+  },
+  {
+    "q": "مؤشراً على أن معلم الرياضيات ينمي مهارات التفكير الإبداعي:",
+    "options": ["يشكل اتجاهات إيجابية نحو الرياضيات", "يحقق متطلبات النجاح", "يفهم الطلاب المسائل", "يقدم الطلاب طرق مختلفة للحل"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الصحيح 'يقدم الطلاب طرق مختلفة للحل' لأنه يشجع على الإبداع وتفكير الطلاب بشكل مستقل.",
+      "wrong1": "تشكيل اتجاهات إيجابية مهم لكن لا يكفي.",
+      "wrong2": "تحقيق متطلبات النجاح يركز على النتائج لا التفكير الإبداعي.",
+      "wrong3": "فهم الطلاب المسائل مهارة أساسية لكنها لا تعني التفكير الإبداعي."
+    }
+  },
+  {
+    "q": "خصائص الكتابة الوظيفية ما عدا:",
+    "options": ["سهولة العبارة", "الاستشهاد بالحقائق", "اختفاء شخصية الكاتب", "الاعتماد على الخيال"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الصحيح 'الاعتماد على الخيال' لأنه غير متوافق مع الكتابة الوظيفية التي تهدف للوضوح والدقة والاعتماد على الحقائق.",
+      "wrong1": "الخيارات الأخرى من خصائص الكتابة الوظيفية.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "كتبت الهمزات صحيحة في:",
+    "options": ["هدفك يوصلك لما تريد فأسع وراءه", "لا تكن طائشا", "أفضل طريقة لإزالة السلبية", "ركز على أهدافك"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الخيار الصحيح 'فأسع' كتابة الهمزة صحيحة على الألف بعد الفاء.",
+      "wrong1": "باقي الخيارات تحتوي على أخطاء إملائية في همزات أو الهمزات غير مطابقة للقواعد.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "كتبت الضاد والظاء بشكل صحيح في:",
+    "options": ["خير الوعظ ضاهره العتاب", "في الظلام تضيق الرؤية", "أضعف الناس من أفشى سره", "التصرف في أثناء الغضب"],
+    "answer": 1,
+    "explanations": {
+      "correct": "الخيار الصحيح 'في الظلام تضيق الرؤية' لأن الضاد والظاء كتبتا بشكل صحيح.",
+      "wrong1": "باقي الخيارات تحتوي على أخطاء في الكتابة أو التمييز بين الضاد والظاء.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  // الأسئلة من 51 إلى 60
+  {
+    "q": "الجملة الصحيحة إملائياً:",
+    "options": ["كن دومن لطيفن", "كن دومن لطيفا", "كن دوما لطيفا", "كن دوما لطيفن"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الخيار الصحيح 'كن دوما لطيفا' لأن: 'دوما' ظرف زمان منصوب وهو الصحيح للإشارة للاستمرار. 'لطيفا' نعت منصوب يتوافق مع الاسم 'كن'.",
+      "wrong1": "الخيارات الأخرى تحتوي على أخطاء في الإملاء أو التشكيل.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "هذه الدرجة ...",
+    "options": ["ملغاة", "ملغية", "لاغية", "ملتغاة"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الخيار الصحيح 'لاغية'، لأنها الصياغة الرسمية الصحيحة وفق قواعد اللغة العربية.",
+      "wrong1": "'ملغاة' و'ملتغاة' صياغات خاطئة.",
+      "wrong2": "'ملغية' غير مستخدمة لغوياً.",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "طالبة تتحاشى القراءة، تستخدم أصابعها وتتخبط في الكلمات، التشخيص:",
+    "options": ["بطء التعلم", "عوق إدراكي", "تأخر دراسي", "صعوبات تعلم"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الصحيح 'صعوبات تعلم' لأن العلامات تشير لمشكلة معالجة المعلومات أو التمييز بين الحروف والكلمات، وليس مجرد بطء أو تأخر.",
+      "wrong1": "بطء التعلم أقل دقة.",
+      "wrong2": "عوق إدراكي عام وغير محدد.",
+      "wrong3": "تأخر دراسي لا يوضح السبب الحقيقي."
+    }
+  },
+  {
+    "q": "سبب تدني مستوى طلاب صعوبات التعلم:",
+    "options": ["انخفاض الذكاء", "اضطراب العمليات الذهنية", "عدم وجود دافعية", "عدم القدرة على المشاركة"],
+    "answer": 1,
+    "explanations": {
+      "correct": "الخيار الصحيح 'اضطراب العمليات الذهنية' لأنه يعيق قدرة الطالب على معالجة المعلومات، التركيز، والفهم، مما يؤدي لتدني الأداء.",
+      "wrong1": "انخفاض الذكاء غير صحيح دائماً.",
+      "wrong2": "عدم وجود دافعية أو عدم القدرة على المشاركة أسباب ثانوية.",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "سعر جوال 7000 ريال أصبح 3700 بعد 3 سنوات، الخصم السنوي:",
+    "options": ["1100", "1300", "1500", "2100"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الخيار الصحيح '1100'، لأنه: الخصم الكلي = 7000 - 3700 = 3300 ريال. الخصم السنوي = 3300 ÷ 3 = 1100 ريال.",
+      "wrong1": "باقي الخيارات خاطئة حسابياً.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "أنواع القراءة من حيث الأداء:",
+    "options": ["جهرية-صامتة", "سمعية-بصرية", "مرئية-مسموعة", "سريعة-باطنة"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الخيار الصحيح 'جهرية-صامتة' لأن القراءة جهرية أي بصوت مسموع، وصامتة أي داخلياً.",
+      "wrong1": "الخيارات الأخرى تصف وسائل أو خصائص أخرى وليست الأداء.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "جدار طوله 6 م وعرضه 3، سعر المتر 20 ريال، تكلفة الطلاء:",
+    "options": ["340", "400", "280", "360"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الصحيح '360' ريال: المساحة = 6 × 3 = 18 م². التكلفة = 18 × 20 = 360 ريال.",
+      "wrong1": "باقي الخيارات خاطئة حسابياً.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "الدخول على موقع إلكتروني وتغيير تصميمه أو حذفه أو إتلافه يسمى:",
+    "options": ["جريمة معلوماتية", "سرقة إلكترونية", "تخريب رقمي", "إتلاف معلوماتي"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الخيار الصحيح 'تخريب رقمي' لأنه يشمل تعديل أو تلف البيانات دون سرقتها.",
+      "wrong1": "جريمة معلوماتية عام.",
+      "wrong2": "سرقة إلكترونية تركز على الاستيلاء على المعلومات.",
+      "wrong3": "إتلاف معلوماتي مشابه لكن المصطلح الأدق هو 'تخريب رقمي'."
+    }
+  },
+  {
+    "q": "صفوة الأفكار في التقرير تكون في:",
+    "options": ["المقدمة", "التحليل", "التمهيد", "الختام"],
+    "answer": 3,
+    "explanations": {
+      "correct": "الخيار الصحيح 'الختام'، حيث يُجمع فيه أهم النتائج والأفكار الرئيسية بعد التحليل والتفسير.",
+      "wrong1": "المقدمة والتمهيد لتقديم الموضوع.",
+      "wrong2": "التحليل لتوضيح التفاصيل.",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "فصل 20 طالب، الموهوبين 10%، انضم 4 طلاب واحد منهم موهوب، النسبة الجديدة:",
+    "options": ["12.5%", "17.5%", "20%", "15%"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الخيار الصحيح '12.5%': الموهوبون الأصليون = 10% من 20 = 2 طالب. إضافة طالب موهوب واحد = 2 + 1 = 3. إجمالي الطلاب الجديد = 20 + 4 = 24. النسبة = 3 ÷ 24 × 100 = 12.5%.",
+      "wrong1": "باقي الخيارات خاطئة حسابياً.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  // الأسئلة من 61 إلى 70
+  {
+    "q": "أي تنظيم منهج يهتم بحاجات الطلاب أكثر من ميولهم، ويسمح بالمساعدة وعدد الطلاب قليل:",
+    "options": ["المحوري", "المواد المنفصلة", "المواد المترابطة", "المجالات العلمية"],
+    "answer": 0,
+    "explanations": {
+      "correct": "التنظيم المحوري يركز على الحاجات الأساسية للطلاب ويتيح تقديم الدعم الفردي عند الحاجة. عدد الطلاب في المجموعة يكون قليلًا لتسهيل المتابعة.",
+      "wrong1": "الخيارات الأخرى تركز على المحتوى أو المجالات، وليس على الاحتياجات الفردية.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "الإسهام في تعزيز مكانة المعلم العلمية والاجتماعية يمثل:",
+    "options": ["الحقوق الوظيفية", "متطلبات الممارسة المهنية", "أهداف سياسة التعليم", "أهداف ميثاق أخلاقيات المهنة"],
+    "answer": 0,
+    "explanations": {
+      "correct": "تعزيز مكانة المعلم جزء من حقوقه الوظيفية. يضمن تقدير المجتمع والمؤسسة لدوره التعليمي والاجتماعي.",
+      "wrong1": "الخيارات الأخرى تتعلق بالواجبات أو الأهداف المهنية، وليست حقوقاً مباشرة.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "الحصة السادسة وأذن الظهر، المعلم يغرس قيم التدين:",
+    "options": ["يردد الأذان مع الطلاب", "يذكر قصص قصيرة عن الأذان", "يوضح واجب المسلم مع الأذان", "يستمر في شرح الدرس"],
+    "answer": 2,
+    "explanations": {
+      "correct": "يوضح واجب المسلم مع الأذان يعكس الغرس المباشر للقيم الدينية.",
+      "wrong1": "خيارات أخرى إما غير مباشرة أو غير مناسبة لتوضيح الواجب.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "إذا ابتسم المعلم فور أداء الطالب، نوع التعزيز:",
+    "options": ["أولي", "ثانوي", "معنوي", "مادي"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الابتسامة تشجع الطالب وتحفزه نفسياً. ليست مادية ولا مرتبطة بالتحصيل الأكاديمي بشكل مباشر. تعزز الثقة بالنفس والدافعية.",
+      "wrong1": "",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "ترتيب أهداف زرع قيمة المواطنة حسب تصنيف كراثول:",
+    "options": ["٤٢٣١", "١٣٢٤", "١٢٣٤", "٢٣١٤"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الترتيب من الأسهل إلى الأعلى مستوى لتحقيق القيمة وفق تصنيف كراثول. يعتمد على تسلسل منطقي يبدأ من المعرفة والفهم، ثم التطبيق، ثم التحليل، ثم التقييم.",
+      "wrong1": "",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "تنظيم خبرات المعلم بحيث لا تكون مكررة بل ترتقي مرحلة لأخرى:",
+    "options": ["التتابع", "التكامل", "التقويم", "التوازن"],
+    "answer": 0,
+    "explanations": {
+      "correct": "التتابع يضمن ترتيب الخبرات من البسيط إلى المعقد. يساعد الطلاب على بناء المعرفة تدريجياً وعدم تكرار المعلومات.",
+      "wrong1": "",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "التعلم باستخدام الأجهزة الخلوية في بيئة غير محددة بالزمان والمكان:",
+    "options": ["الحوسبة السحابية", "الرحلات المعرفية", "التعليم المنتقل", "التعليم المتزامن"],
+    "answer": 2,
+    "explanations": {
+      "correct": "يتيح للطلاب التعلم في أي مكان وزمان باستخدام الأجهزة المحمولة.",
+      "wrong1": "الحوسبة السحابية أداة مساعدة لكنها ليست طريقة التعليم نفسها.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "كتابة تقرير يتضمن الأفكار الرئيسية للدرس يمثل مستوى:",
+    "options": ["التحليل", "التطبيق", "التركيب", "التقويم"],
+    "answer": 2,
+    "explanations": {
+      "correct": "دمج الأفكار وإعداد تقرير يعكس مستوى التركيب في الأهداف التعليمية.",
+      "wrong1": "التحليل فقط يعني تفكيك المعلومات، أما التركيب فيعني إعادة ترتيبها ودمجها.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "شروط بناء هدف سلوكي جيد تشمل:",
+    "options": ["ناتج التعلم", "موضوع التعلم", "عملية التعلم", "نشاط التعلم"],
+    "answer": 0,
+    "explanations": {
+      "correct": "الهدف السلوكي يحدد بوضوح ما يجب أن ينجزه الطالب.",
+      "wrong1": "باقي الخيارات تشير لوسائل أو محتوى وليس للنتيجة القابلة للقياس.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "اختبارات نسبة الذكاء تعد:",
+    "options": ["ذاتي المرجع", "معياري المرجع", "محكي المرجع", "مبنية على المنهج"],
+    "answer": 1,
+    "explanations": {
+      "correct": "تقارن أداء الفرد بأداء عينة معيارية محددة.",
+      "wrong1": "ليست ذاتية أو محكية أو مرتبطة بالمنهج الدراسي.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  // الأسئلة من 71 إلى 80
+  {
+    "q": "نشاط مجموعات المثلثات وقياس الزوايا، طريقة التدريس:",
+    "options": ["الاستنباط", "الاستقراء", "العرض العملي", "حل المشكلات"],
+    "answer": 1,
+    "explanations": {
+      "correct": "الطلاب يجمعون البيانات ويستنتجون القواعد بأنفسهم.",
+      "wrong1": "الاستنباط يبدأ بالقواعد ثم الأمثلة، هنا العكس.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "طريقة تهتم بكم الأفكار قبل نوعيتها:",
+    "options": ["حل المشكلات", "العصف الذهني", "المشروعات", "المحاضرة"],
+    "answer": 1,
+    "explanations": {
+      "correct": "يهدف لإنتاج أكبر عدد من الأفكار دون التركيز على جودتها أولاً.",
+      "wrong1": "باقي الطرق تركز على النتائج أو المحتوى.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "الحقائق التعليمية تعد:",
+    "options": ["تعليم تبادلي", "تعليم مباشر", "تفريد تعلم", "تعليم موجه"],
+    "answer": 1,
+    "explanations": {
+      "correct": "تُقدم بطريقة مباشرة لتسهيل الفهم والاستيعاب.",
+      "wrong1": "التعليم التبادلي أو الموجه يركز على التفاعل وليس تقديم الحقائق فقط.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "من حقوق المعلم المدنية:",
+    "options": ["الاطلاع على تقويم الأداء", "دراسة المناهج وتقويمها", "المشاركة في برامج النشاط", "حضور الاجتماعات المدرسية"],
+    "answer": 0,
+    "explanations": {
+      "correct": "يضمن المعلم حقوقه ويعرف مستوى طلابه وعدالته في التقييم.",
+      "wrong1": "باقي الخيارات واجبات أو نشاطات وليست حقوقاً مدنية.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "درس جديد بدون معلومات سابقة للطلاب، البعد المستخدم من أوزيل:",
+    "options": ["المقارن", "الاستقبالي", "الكشفي", "الشارح"],
+    "answer": 2,
+    "explanations": {
+      "correct": "الطلاب يكتشفون المعلومات بأنفسهم دون الاعتماد على خبرة سابقة.",
+      "wrong1": "الاستقبالي أو الشارح يعتمد على تقديم المعلومات مباشرة.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "تصنيف أدوات هندسية حسب عدد الأضلاع، يساعد الطلاب على تعلم:",
+    "options": ["المفاهيم", "الحقائق", "التعاميم", "القواعد"],
+    "answer": 0,
+    "explanations": {
+      "correct": "تصنيف الأشكال يركز على فهم خصائصها والمبادئ الأساسية، وليس مجرد حفظ الحقائق.",
+      "wrong1": "",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "تربية المواطن المؤمن لإعداده إعداداً سليماً، أي المبادرة:",
+    "options": ["الأصالة والتجديد", "التربية المتكاملة", "التربية للحياة", "تكافؤ الفرص"],
+    "answer": 1,
+    "explanations": {
+      "correct": "تشمل القيم، الثقافة، المهارات الاجتماعية والدينية.",
+      "wrong1": "باقي الخيارات محدودة أو جزئية.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "نموذج تقني يوفر التقنيات التعليمية متاح في أي وقت وأجهزة مختلفة:",
+    "options": ["الواقع المعزز", "الكتب التفاعلية", "المدونات التعليمية", "الحوسبة السحابية"],
+    "answer": 3,
+    "explanations": {
+      "correct": "توفر الوصول للمواد التعليمية في أي وقت وعلى أي جهاز.",
+      "wrong1": "الواقع المعزز أو الكتب التفاعلية أدوات محدودة لا توفر الوصول الشامل.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "مجموعة القواعد والمعايير التي توجه الأفراد نحو منافع الحياة الحديثة:",
+    "options": ["الضبط الرقمي", "التوجيه الرقمي", "الرقابة الرقمية", "المواطنة الرقمية"],
+    "answer": 3,
+    "explanations": {
+      "correct": "تشير لاستخدام التقنية بشكل مسؤول لتحقيق الفائدة.",
+      "wrong1": "الضبط أو الرقابة تتعلق بالتحكم، وليست توجيه المسؤوليات الرقمية.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "الطالب عبد الرحمن يأتي عليه آثار كدمات، الإجراء المناسب:",
+    "options": ["تجاهل", "الاتصال بالوالد", "إبلاغ إدارة المدرسة والمرشد", "التحقيق مع الطالب"],
+    "answer": 2,
+    "explanations": {
+      "correct": "يضمن حماية الطالب ومتابعة الحالة وفق الإجراءات النظامية.",
+      "wrong1": "الاتصال بالوالد وحده أو التحقيق مع الطالب قد يكون غير كافٍ أو غير آمن.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  // الأسئلة من 81 إلى 86
+  {
+    "q": "صف تتباين فيه قدرات الطلاب، أنسب أسلوب تدريس:",
+    "options": ["المناقشة", "المحاضرة", "تفريد التعليم", "التعلم التعاوني"],
+    "answer": 3,
+    "explanations": {
+      "correct": "يتيح لكل طالب التفاعل مع الآخرين والاستفادة من اختلاف مستوياتهم.",
+      "wrong1": "المحاضرة والمناقشة لا تحقق تكيفًا فرديًا كاملًا.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "دور المتعلم في المدرسة السلوكية:",
+    "options": ["مشاركة زملائه في المهام", "تهيئة بيئة التعلم", "تنظيم الممارسات العملية", "الاستجابة للمؤثرات"],
+    "answer": 3,
+    "explanations": {
+      "correct": "المدرسة السلوكية ترى أن التعلم يتم عن طريق التفاعل مع المؤثرات والمحفزات.",
+      "wrong1": "باقي الخيارات نشاطات داعمة لكنها ليست جوهرية في النظرية.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "التوجه الحديث لتكييف المحتوى مع الفروق الفردية:",
+    "options": ["التعلم النشط", "التعليم البنائي", "التعليم المتمايز", "التعليم الإلكتروني"],
+    "answer": 2,
+    "explanations": {
+      "correct": "يكيف المحتوى، الأنشطة، وطريقة التدريس لتلبية احتياجات كل طالب.",
+      "wrong1": "التعلم النشط أو البنائي طرق عامة لا تركز على الفرد بشكل محدد.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "من صور التفاعل الإيجابي مع أولياء الأمور:",
+    "options": ["أهداف المقررات", "أهداف المعرفة ذات الأولوية", "خطط التدريس وتعلم الطلاب", "تنظيم العمل التعليمي والإرشادي"],
+    "answer": 2,
+    "explanations": {
+      "correct": "مشاركة أولياء الأمور تقدم صورة واضحة عن تقدم أبنائهم.",
+      "wrong1": "الخيارات الأخرى عامة ولا تمثل تفاعلًا مباشرًا.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "أي طرق التعليم توفر فرصة للتعلم حسب سرعة الطالب وقدرته:",
+    "options": ["المبرمج", "التعاوني", "العصف الذهني", "الحوار والمناقشة"],
+    "answer": 0,
+    "explanations": {
+      "correct": "يسمح للطالب بالتقدم وفق قدرته الفردية دون التأثر بسرعة زملائه.",
+      "wrong1": "باقي الطرق جماعية أو تعتمد على تفاعل عام.",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  },
+  {
+    "q": "أي من طرق التعليم الآتية توفر للطلاب فرصة التعلم حسب سرعته وقدرته الخاصة، بحيث يتيح لكل طالب التقدم بما يناسبه دون التأثر بسرعة أو مستوى زملائه؟",
+    "options": ["المبرمج", "التعاوني", "العصف الذهني", "الحوار والمناقشة"],
+    "answer": 0,
+    "explanations": {
+      "correct": "يسمح للطالب بالتقدم وفق قدرته الفردية دون التأثر بسرعة زملائه.",
+      "wrong1": "",
+      "wrong2": "",
+      "wrong3": ""
+    }
+  }
+];
 
-        // تهيئة التطبيق
-        document.addEventListener('DOMContentLoaded', function() {
-            initPagination();
-            loadPage(currentPage);
-            updateProgressBar();
-        });
+let currentQuestionIndex = 0;
+let userAnswers = Array(questions.length).fill(null);
 
-        // تهيئة الترقيم الصفحي
-        function initPagination() {
-            const pageIndicator = document.getElementById('page-indicator');
-            
-            for (let i = 0; i < totalPages; i++) {
-                const pageDot = document.createElement('div');
-                pageDot.className = 'page-dot';
-                if (i === 0) pageDot.classList.add('active');
-                pageDot.setAttribute('data-page', i);
-                pageDot.addEventListener('click', function() {
-                    goToPage(parseInt(this.getAttribute('data-page')));
-                });
-                pageIndicator.appendChild(pageDot);
-            }
-            
-            // إعداد أزرار التنقل
-            document.getElementById('prev-page').addEventListener('click', function() {
-                if (currentPage > 0) {
-                    goToPage(currentPage - 1);
-                }
-            });
-            
-            document.getElementById('next-page').addEventListener('click', function() {
-                if (currentPage < totalPages - 1) {
-                    goToPage(currentPage + 1);
-                }
-            });
+// تحميل الاختبار
+function loadQuiz() {
+    const quizDiv = document.getElementById("quiz");
+    quizDiv.innerHTML = "";
+
+    const question = questions[currentQuestionIndex];
+    
+    let html = `
+        <div class="question-box">
+            <div class="question-number">السؤال ${currentQuestionIndex + 1} من ${questions.length}</div>
+            <div class="question-text">${question.q}</div>
+            <div class="options">
+    `;
+    
+    question.options.forEach((opt, i) => {
+        const isChecked = userAnswers[currentQuestionIndex] === i ? 'checked' : '';
+        html += `
+            <label>
+                <input type="radio" name="q${currentQuestionIndex}" value="${i}" ${isChecked} onchange="selectAnswer(${i})">
+                ${opt}
+            </label>
+        `;
+    });
+    
+    html += `
+            </div>
+            <div id="explanation" class="explanation"></div>
+        </div>
+        <div class="navigation">
+            <button onclick="previousQuestion()" ${currentQuestionIndex === 0 ? 'disabled' : ''}>السابق</button>
+            <button onclick="nextQuestion()" ${currentQuestionIndex === questions.length - 1 ? 'disabled' : ''}>التالي</button>
+        </div>
+    `;
+    
+    quizDiv.innerHTML = html;
+    
+    // تحديث شريط التقدم
+    document.getElementById('progress').style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+    
+    // تحديث معلومات الاختبار
+    document.getElementById('quiz-info').innerHTML = `السؤال ${currentQuestionIndex + 1} من ${questions.length}`;
+    
+    // عرض الشرح إذا كان المستخدم قد أجاب على السؤال
+    if (userAnswers[currentQuestionIndex] !== null) {
+        showExplanation();
+    }
+}
+
+// اختيار إجابة
+function selectAnswer(answerIndex) {
+    userAnswers[currentQuestionIndex] = answerIndex;
+    showExplanation();
+}
+
+// عرض الشرح
+function showExplanation() {
+    const question = questions[currentQuestionIndex];
+    const explanationDiv = document.getElementById("explanation");
+    const userAnswer = userAnswers[currentQuestionIndex];
+    
+    if (userAnswer !== null) {
+        explanationDiv.style.display = "block";
+        
+        let resultHTML = "";
+        
+        if (userAnswer === question.answer) {
+            resultHTML = `<p class="correct">إجابة صحيحة</p>`;
+        } else {
+            resultHTML = `
+                <p class="wrong">إجابة خاطئة — الإجابة الصحيحة: <span class="correct">${question.options[question.answer]}</span></p>
+            `;
         }
-
-        // الانتقال إلى صفحة محددة
-        function goToPage(page) {
-            currentPage = page;
-            loadPage(currentPage);
-            updatePagination();
-            updateProgressBar();
+        
+        // إضافة الشروح الملونة
+        resultHTML += `
+            <div class="explanation-line explanation-correct">${question.explanations.correct}</div>
+        `;
+        
+        if (question.explanations.wrong1) {
+            resultHTML += `<div class="explanation-line explanation-wrong-1">${question.explanations.wrong1}</div>`;
         }
-
-        // تحميل صفحة الأسئلة
-        function loadPage(page) {
-            const quizContainer = document.getElementById('quiz-container');
-            quizContainer.innerHTML = '';
-            
-            const startIndex = page * questionsPerPage;
-            const endIndex = Math.min(startIndex + questionsPerPage, questions.length);
-            
-            for (let i = startIndex; i < endIndex; i++) {
-                const q = questions[i];
-                const box = document.createElement('div');
-                box.className = 'question-box';
-                
-                let html = `
-                    <div class="question-number">${i+1}</div>
-                    <p><strong>${q.q}</strong></p>
-                `;
-                
-                q.options.forEach((opt, optIndex) => {
-                    html += `
-                        <label>
-                            <input type="radio" name="q${i}" value="${optIndex}" onclick="disableOptions(${i})">
-                            ${opt}
-                        </label>
-                    `;
-                });
-                
-                html += `
-                    <p id="feedback${i}"></p>
-                    <div id="explain${i}" class="explanation"></div>
-                `;
-                
-                box.innerHTML = html;
-                quizContainer.appendChild(box);
-            }
+        
+        if (question.explanations.wrong2) {
+            resultHTML += `<div class="explanation-line explanation-wrong-2">${question.explanations.wrong2}</div>`;
         }
-
-        // تحديث الترقيم الصفحي
-        function updatePagination() {
-            const pageDots = document.querySelectorAll('.page-dot');
-            pageDots.forEach((dot, index) => {
-                if (index === currentPage) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            // تحديث حالة أزرار التنقل
-            document.getElementById('prev-page').disabled = currentPage === 0;
-            document.getElementById('next-page').disabled = currentPage === totalPages - 1;
+        
+        if (question.explanations.wrong3) {
+            resultHTML += `<div class="explanation-line explanation-wrong-3">${question.explanations.wrong3}</div>`;
         }
+        
+        explanationDiv.innerHTML = resultHTML;
+    }
+}
 
-        // تحديث شريط التقدم
-        function updateProgressBar() {
-            const progress = ((currentPage + 1) / totalPages) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-        }
+// الانتقال إلى السؤال التالي
+function nextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuiz();
+    }
+}
 
-        // منع تغيير الإجابة + إظهار التصحيح
-        function disableOptions(qIndex) {
-            const radios = document.querySelectorAll(`input[name="q${qIndex}"]`);
-            radios.forEach(r => r.disabled = true);
-            
-            const selected = document.querySelector(`input[name="q${qIndex}"]:checked`);
-            const q = questions[qIndex];
-            const feedback = document.getElementById(`feedback${qIndex}`);
-            const explain = document.getElementById(`explain${qIndex}`);
-            
-            if (selected && Number(selected.value) === q.answer) {
-                feedback.innerHTML = "✔️ إجابة صحيحة";
-                feedback.className = "correct";
-            } else {
-                feedback.innerHTML = `❌ إجابة خاطئة — الإجابة الصحيحة: <span class="correct">${q.options[q.answer]}</span>`;
-                feedback.className = "wrong";
-            }
-            
-            explain.style.display = "block";
-            explain.innerHTML = q.explanation;
-        }
+// الانتقال إلى السؤال السابق
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuiz();
+    }
+}
 
-        // عرض الدرجات الحالية
-        function showCurrentScore() {
-            let totalCorrect = 0;
-            questions.forEach((q, index) => {
-                const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                if (selected && Number(selected.value) === q.answer) totalCorrect++;
-            });
-            
-            const total = questions.length;
-            const percentage = ((totalCorrect / total) * 100).toFixed(2);
-            
-            document.getElementById("current-score").style.display = "block";
-            document.getElementById("current-correct").innerHTML = `الإجابات الصحيحة: ${totalCorrect} من ${total}`;
-            document.getElementById("current-percentage").innerHTML = `النسبة المئوية الحالية: ${percentage}%`;
+// عرض الدرجات الحالية دون إنهاء الاختبار
+function showCurrentScore() {
+    let totalCorrect = 0;
+    userAnswers.forEach((answer, index) => {
+        if (answer === questions[index].answer) {
+            totalCorrect++;
         }
+    });
 
-        // النتيجة النهائية
-        function finishQuiz() {
-            showCurrentScore();
-            const totalCorrect = Number(document.getElementById("current-correct").innerHTML.split(" ")[2]);
-            const total = questions.length;
-            const percentage = ((totalCorrect / total) * 100).toFixed(2);
-            
-            let evaluation = "";
-            let evaluationClass = "";
-            
-            if (percentage >= 90) {
-                evaluation = "🌟 ممتاز - أداء رائع!";
-                evaluationClass = "excellent";
-            } else if (percentage >= 80) {
-                evaluation = "🔵 جيد جداً - أداء متميز";
-                evaluationClass = "very-good";
-            } else if (percentage >= 70) {
-                evaluation = "🟢 جيد - أداء مقبول";
-                evaluationClass = "good";
-            } else {
-                evaluation = "⚠️ يحتاج تحسين - راجع المواد الدراسية";
-                evaluationClass = "needs-improvement";
-            }
-            
-            document.getElementById("result-box").style.display = "block";
-            document.getElementById("result").innerHTML = `النتيجة: ${totalCorrect} من ${total}`;
-            document.getElementById("percentage").innerHTML = `النسبة المئوية: ${percentage}%`;
-            document.getElementById("evaluation").innerHTML = `التقييم: ${evaluation}`;
-            document.getElementById("evaluation").className = evaluationClass;
+    const total = questions.length;
+    const percentage = ((totalCorrect / total) * 100).toFixed(2);
+
+    document.getElementById("current-score").style.display = "block";
+    document.getElementById("current-correct").innerHTML = `الإجابات الصحيحة: ${totalCorrect} من ${total}`;
+    document.getElementById("current-percentage").innerHTML = `النسبة المئوية الحالية: ${percentage}%`;
+}
+
+// حساب الدرجات النهائية
+function finishQuiz() {
+    let totalCorrect = 0;
+    userAnswers.forEach((answer, index) => {
+        if (answer === questions[index].answer) {
+            totalCorrect++;
         }
-    </script>
+    });
+
+    const total = questions.length;
+    const percentage = ((totalCorrect / total) * 100).toFixed(2);
+
+    let evaluation = "";
+    if (percentage >= 90) evaluation = "🌟 ممتاز";
+    else if (percentage >= 80) evaluation = "🔵 جيد جداً";
+    else if (percentage >= 70) evaluation = "🟢 جيد";
+    else evaluation = "⚠️ يحتاج تحسين";
+
+    document.getElementById("result-box").style.display = "block";
+    document.getElementById("result").innerHTML = `النتيجة: ${totalCorrect} من ${total}`;
+    document.getElementById("percentage").innerHTML = `النسبة المئوية: ${percentage}%`;
+    document.getElementById("evaluation").innerHTML = `التقييم: ${evaluation}`;
+    
+    // إخفاء الاختبار
+    document.getElementById("quiz").style.display = "none";
+    document.querySelector(".controls").style.display = "none";
+}
+
+// بدء التحميل الأولي
+loadQuiz();
+</script>
+
 </body>
 </html>
