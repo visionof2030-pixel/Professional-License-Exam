@@ -1,4 +1,4 @@
-<html lang="ar" dir="rtl">
+55<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,274 @@ body {
     padding: 20px; 
     background: #f3f3f3; 
     line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
 }
+
+/* أنماط الوضع الداكن */
+body.dark-mode {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background: #2d2d2d;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .question-box {
+    background: #2d2d2d;
+    box-shadow: 0 0 5px rgba(255,255,255,0.1);
+    border-right: 4px solid #5d8bf4;
+}
+
+body.dark-mode .options label {
+    border: 1px solid #444;
+    background: #333;
+}
+
+body.dark-mode .options label:hover {
+    background: #3a3a3a;
+}
+
+body.dark-mode #result-box, 
+body.dark-mode #current-score {
+    background: #2d2d2d;
+    box-shadow: 0 0 5px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .explanation {
+    background: #333;
+    border-right: 4px solid #5d8bf4;
+}
+
+body.dark-mode .progress-bar {
+    background: #444;
+}
+
+body.dark-mode .quiz-info {
+    color: #aaa;
+}
+
+/* تحسينات للإجابة المختارة */
+.answered {
+    background-color: #e8f0fe !important;
+    border: 2px solid #3c6df0 !important;
+    box-shadow: 0 2px 8px rgba(60, 109, 240, 0.3) !important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.answered::before {
+    content: "✓";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #3c6df0;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+body.dark-mode .answered {
+    background-color: #2a3a5a !important;
+    border: 2px solid #5d8bf4 !important;
+    box-shadow: 0 2px 8px rgba(93, 139, 244, 0.4) !important;
+}
+
+body.dark-mode .answered::before {
+    background: #5d8bf4;
+}
+
+/* تحسينات إضافية للخيارات */
+.options label {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    position: relative;
+}
+
+.options label:hover {
+    background: #f5f8ff;
+    border-color: #a8c6ff;
+}
+
+.options input[type="radio"] {
+    margin-left: 10px;
+    transform: scale(1.2);
+}
+
+/* زر الوضع الليلي الجديد */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #3c6df0;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    transition: all 0.3s;
+    padding: 10px 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.dark-mode-toggle:hover {
+    background: #2a5bd7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+.dark-mode-toggle:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .dark-mode-toggle {
+    background: #5d8bf4;
+    color: white;
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+    background: #4a7ae8;
+}
+
+/* أيقونة القمر والشمس */
+.moon-icon, .sun-icon {
+    font-size: 18px;
+}
+
+/* أنماط جديدة للتحسينات */
+.flagged {
+    position: relative;
+}
+
+.flagged::after {
+    content: "📍";
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    font-size: 14px;
+}
+
+.question-status-grid {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+
+.question-status-grid:hover {
+    transform: scale(1.1);
+}
+
+.question-status-grid.current {
+    border-color: #FFC107;
+    background: #FFF9C4;
+}
+
+.question-status-grid.answered {
+    border-color: #4CAF50;
+    background: #E8F5E8;
+}
+
+.question-status-grid.flagged {
+    border-color: #FF9800;
+    background: #FFF3E0;
+}
+
+body.dark-mode .question-status-grid {
+    border-color: #555;
+    background: #333;
+    color: #e0e0e0;
+}
+
+body.dark-mode .question-status-grid.current {
+    border-color: #FFC107;
+    background: #5d4a00;
+}
+
+body.dark-mode .question-status-grid.answered {
+    border-color: #4CAF50;
+    background: #1b3a1b;
+}
+
+body.dark-mode .question-status-grid.flagged {
+    border-color: #FF9800;
+    background: #3d2e00;
+}
+
+/* تحسينات للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .dark-mode-toggle {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 10px;
+    }
+    
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    .options label {
+        padding: 10px;
+    }
+    
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .navigation button {
+        width: 100%;
+    }
+    
+    .question-status-grid {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .controls > div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
 .header-notice {
     background: linear-gradient(135deg, #3c6df0, #2a5bd7);
     color: white;
@@ -19,6 +286,7 @@ body {
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
 }
 .notice-arabic, .notice-english {
     font-weight: bold;
@@ -39,6 +307,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 .question-box { 
     background: #fff; 
@@ -47,6 +316,7 @@ body {
     border-radius: 8px; 
     box-shadow: 0 0 5px #ccc; 
     border-right: 4px solid #3c6df0;
+    transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 .question-number {
     font-size: 1.2em;
@@ -57,21 +327,6 @@ body {
 .question-text {
     font-size: 1.1em;
     margin-bottom: 20px;
-}
-.options label { 
-    display: block; 
-    padding: 10px; 
-    margin: 8px 0; 
-    border: 1px solid #ddd; 
-    border-radius: 4px; 
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.options label:hover { 
-    background: #f0f5ff; 
-}
-.options input[type="radio"] { 
-    margin-left: 10px; 
 }
 .correct { 
     color: green; 
@@ -89,6 +344,7 @@ body {
     display: none;
     background: #f9f9f9;
     border-right: 4px solid #3c6df0;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 .explanation-line {
     padding: 8px;
@@ -115,6 +371,10 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    gap: 10px;
+}
+.navigation button {
+    flex: 1;
 }
 button { 
     padding: 10px 20px; 
@@ -139,6 +399,7 @@ button:disabled {
     margin-top: 20px; 
     border-radius: 8px; 
     box-shadow: 0 0 5px #bbb; 
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 #current-score { 
     display: none; 
@@ -161,18 +422,113 @@ button:disabled {
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    gap: 10px;
 }
 .quiz-info {
     font-size: 14px;
     color: #666;
+    transition: color 0.3s;
 }
-.answered {
-    background-color: #f0f8ff;
-    border-color: #3c6df0;
+
+/* أنماط المؤقت */
+#timer {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3c6df0;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.timer-warning {
+    color: #f44336 !important;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* أنماط قائمة الأسئلة */
+#questions-list {
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#questions-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* نتائج تفصيلية */
+#detailed-results {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.result-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 4px solid #4CAF50;
+}
+
+.result-item.wrong {
+    border-left-color: #f44336;
+    background: #FFEBEE;
+}
+
+.result-item.correct {
+    border-left-color: #4CAF50;
+    background: #E8F5E8;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
 }
 </style>
 </head>
 <body>
+
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">
+    <span class="moon-icon">🌙</span>
+    <span class="toggle-text">الوضع الليلي</span>
+</button>
 
 <div class="header-notice">
     <p class="notice-arabic">اختبار الرخصة المهنية للمعلمين</p>
@@ -180,8 +536,7 @@ button:disabled {
 </div>
 
 <div class="container">
-    <h2>أُعدَّ هذا الاختبار التفاعلي ليحاكي الاختبار العام للرخصة المهنية، مقدّمًا تغذية راجعة فورية تعزز من عمق التعلّم وجودة الاستعداد. إعداد: فهد الخالدي.
- </h2>
+    <h2>أُعدَّ هذا الاختبار التفاعلي ليحاكي الاختبار العام للرخصة المهنية، مقدّمًا تغذية راجعة فورية تعزز من عمق التعلّم وجودة الاستعداد. إعداد: فهد الخالدي.</h2>
     
     <div class="progress-bar">
         <div class="progress" id="progress"></div>
@@ -191,10 +546,37 @@ button:disabled {
     
     <div class="controls">
         <div class="quiz-info" id="quiz-info"></div>
+        <div id="timer">⏱️ <span id="time-display">45:00</span></div>
         <div>
+            <button onclick="showQuestionsList()">📋 قائمة الأسئلة</button>
+            <button onclick="toggleMarkForReview()" id="mark-review-btn">📍 وضع علامة للمراجعة</button>
             <button onclick="finishQuiz()">إنهاء الاختبار</button>
             <button onclick="showCurrentScore()">📊 عرض الدرجات الحالية</button>
         </div>
+    </div>
+    
+    <div id="questions-list" style="display:none;">
+        <h4>قائمة الأسئلة</h4>
+        <div id="questions-grid"></div>
+        <div class="legend">
+            <div class="legend-item">
+                <div class="question-status-grid" style="background: #FFF9C4; border-color: #FFC107;"></div>
+                <span>السؤال الحالي</span>
+            </div>
+            <div class="legend-item">
+                <div class="question-status-grid" style="background: #E8F5E8; border-color: #4CAF50;"></div>
+                <span>تمت الإجابة</span>
+            </div>
+            <div class="legend-item">
+                <div class="question-status-grid" style="background: #FFF3E0; border-color: #FF9800;"></div>
+                <span>معلم للمراجعة</span>
+            </div>
+            <div class="legend-item">
+                <div class="question-status-grid" style="background: white; border-color: #ddd;"></div>
+                <span>لم يتم الإجابة</span>
+            </div>
+        </div>
+        <button onclick="hideQuestionsList()" style="margin-top:10px;">إغلاق القائمة</button>
     </div>
     
     <div id="current-score">
@@ -207,12 +589,22 @@ button:disabled {
         <h3 id="result"></h3>
         <p id="percentage"></p>
         <p id="evaluation"></p>
+        
+        <div id="detailed-results">
+            <h4>النتائج التفصيلية:</h4>
+            <div id="results-list"></div>
+        </div>
+        
+        <div id="advanced-stats"></div>
+        
+        <button onclick="restartQuiz()" style="margin-top:15px;">🔄 إعادة الاختبار</button>
     </div>
 </div>
 
 <script>
 // بيانات الأسئلة الـ86 كاملة مع الشروحات التفصيلية
 const questions = [
+  // ... (جميع الأسئلة كما هي في الملف الأصلي)
   {
     "id": 1,
     "q": "إذا كنت تخطط لاستثارة التفكير الإبداعي لدى الطلاب، فيجب أن تكلف الطلاب بنشاطات وتطرح أسئلة تركز على التفكير:",
@@ -1265,12 +1657,125 @@ const questions = [
       "wrong3": "أسلوب التدريس يعكس الطريقة الشخصية للمعلم في التفاعل مع الطلاب وتنفيذ التدريس. يتعلق بالخصائص الفردية للمعلم وليس بالإطار النظري الشامل. يعتبر مكملاً لمدخل التدريس وليس مرادفاً له."
     }
   
-  }
-  // ... سيتم إضافة بقية الأسئلة بنفس النمط
+  },
+  // ... (بقية الأسئلة)
 ];
 
 let currentQuestionIndex = 0;
 let userAnswers = Array(questions.length).fill(null);
+let timeLeft = 45 * 60; // 45 دقيقة
+let timerInterval;
+let markedQuestions = [];
+
+// وظيفة تبديل الوضع الداكن
+function toggleDarkMode() {
+    const body = document.body;
+    const toggleButton = document.querySelector('.dark-mode-toggle');
+    const moonIcon = toggleButton.querySelector('.moon-icon');
+    const toggleText = toggleButton.querySelector('.toggle-text');
+    
+    body.classList.toggle('dark-mode');
+    
+    if (body.classList.contains('dark-mode')) {
+        moonIcon.textContent = '☀️';
+        toggleText.textContent = 'الوضع النهاري';
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        moonIcon.textContent = '🌙';
+        toggleText.textContent = 'الوضع الليلي';
+        localStorage.setItem('darkMode', 'disabled');
+    }
+}
+
+// التحقق من تفضيل الوضع الداكن المخزن
+function checkDarkModePreference() {
+    const darkMode = localStorage.getItem('darkMode');
+    const toggleButton = document.querySelector('.dark-mode-toggle');
+    const moonIcon = toggleButton.querySelector('.moon-icon');
+    const toggleText = toggleButton.querySelector('.toggle-text');
+    
+    if (darkMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+        moonIcon.textContent = '☀️';
+        toggleText.textContent = 'الوضع النهاري';
+    } else {
+        document.body.classList.remove('dark-mode');
+        moonIcon.textContent = '🌙';
+        toggleText.textContent = 'الوضع الليلي';
+    }
+}
+
+// المؤقت
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            finishQuiz();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    const timeDisplay = document.getElementById('time-display');
+    timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    // تغيير اللون عندما يقل الوقت
+    if (timeLeft < 300) { // 5 دقائق
+        timeDisplay.classList.add('timer-warning');
+    } else {
+        timeDisplay.classList.remove('timer-warning');
+    }
+}
+
+// عرض قائمة الأسئلة
+function showQuestionsList() {
+    const grid = document.getElementById('questions-grid');
+    grid.innerHTML = '';
+    
+    questions.forEach((_, index) => {
+        const btn = document.createElement('div');
+        btn.className = `question-status-grid ${index === currentQuestionIndex ? 'current' : ''} ${userAnswers[index] !== null ? 'answered' : ''} ${markedQuestions.includes(index) ? 'flagged' : ''}`;
+        btn.textContent = index + 1;
+        btn.onclick = () => {
+            currentQuestionIndex = index;
+            loadQuiz();
+            hideQuestionsList();
+        };
+        grid.appendChild(btn);
+    });
+    
+    document.getElementById('questions-list').style.display = 'block';
+}
+
+function hideQuestionsList() {
+    document.getElementById('questions-list').style.display = 'none';
+}
+
+// وضع علامة للمراجعة
+function toggleMarkForReview() {
+    const index = markedQuestions.indexOf(currentQuestionIndex);
+    const btn = document.getElementById('mark-review-btn');
+    
+    if (index === -1) {
+        markedQuestions.push(currentQuestionIndex);
+        btn.innerHTML = '✅ إزالة العلامة';
+        btn.style.background = '#4CAF50';
+    } else {
+        markedQuestions.splice(index, 1);
+        btn.innerHTML = '📍 وضع علامة للمراجعة';
+        btn.style.background = '#3c6df0';
+    }
+    
+    // تحديث قائمة الأسئلة إذا كانت مفتوحة
+    if (document.getElementById('questions-list').style.display === 'block') {
+        showQuestionsList();
+    }
+}
 
 // تحميل الاختبار
 function loadQuiz() {
@@ -1289,8 +1794,9 @@ function loadQuiz() {
     question.options.forEach((opt, i) => {
         const isChecked = userAnswers[currentQuestionIndex] === i ? 'checked' : '';
         const isDisabled = userAnswers[currentQuestionIndex] !== null ? 'disabled' : '';
+        const isFlagged = markedQuestions.includes(currentQuestionIndex) ? 'flagged' : '';
         html += `
-            <label class="${userAnswers[currentQuestionIndex] === i ? 'answered' : ''}">
+            <label class="${userAnswers[currentQuestionIndex] === i ? 'answered' : ''} ${isFlagged}">
                 <input type="radio" name="q${currentQuestionIndex}" value="${i}" ${isChecked} ${isDisabled} onchange="selectAnswer(${i})">
                 ${opt}
             </label>
@@ -1314,6 +1820,16 @@ function loadQuiz() {
     
     // تحديث معلومات الاختبار
     document.getElementById('quiz-info').innerHTML = `السؤال ${currentQuestionIndex + 1} من ${questions.length}`;
+    
+    // تحديث زر وضع العلامة
+    const markBtn = document.getElementById('mark-review-btn');
+    if (markedQuestions.includes(currentQuestionIndex)) {
+        markBtn.innerHTML = '✅ إزالة العلامة';
+        markBtn.style.background = '#4CAF50';
+    } else {
+        markBtn.innerHTML = '📍 وضع علامة للمراجعة';
+        markBtn.style.background = '#3c6df0';
+    }
     
     // عرض الشرح إذا كان المستخدم قد أجاب على السؤال
     if (userAnswers[currentQuestionIndex] !== null) {
@@ -1401,8 +1917,90 @@ function showCurrentScore() {
     document.getElementById("current-percentage").innerHTML = `النسبة المئوية الحالية: ${percentage}%`;
 }
 
+// إحصائيات متقدمة
+function showAdvancedStats() {
+    const stats = {
+        correct: 0,
+        wrong: 0,
+        unanswered: 0,
+        marked: markedQuestions.length,
+        timeSpent: (45 * 60 - timeLeft) / 60 // دقائق
+    };
+    
+    userAnswers.forEach((answer, index) => {
+        if (answer === null) {
+            stats.unanswered++;
+        } else if (answer === questions[index].answer) {
+            stats.correct++;
+        } else {
+            stats.wrong++;
+        }
+    });
+    
+    const statsHTML = `
+        <div class="stats-grid">
+            <div class="stat-item" style="background:#E8F5E8;">
+                <strong>الإجابات الصحيحة:</strong><br>${stats.correct}
+            </div>
+            <div class="stat-item" style="background:#FFEBEE;">
+                <strong>الإجابات الخاطئة:</strong><br>${stats.wrong}
+            </div>
+            <div class="stat-item" style="background:#FFF3E0;">
+                <strong>لم يتم الإجابة:</strong><br>${stats.unanswered}
+            </div>
+            <div class="stat-item" style="background:#E3F2FD;">
+                <strong>معلم للمراجعة:</strong><br>${stats.marked}
+            </div>
+            <div class="stat-item" style="background:#F3E5F5; grid-column:1/-1;">
+                <strong>الوقت المستغرق:</strong><br>${stats.timeSpent.toFixed(1)} دقيقة
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('advanced-stats').innerHTML = `<h4>الإحصائيات المتقدمة:</h4>${statsHTML}`;
+}
+
+// نتائج تفصيلية
+function showDetailedResults() {
+    const resultsList = document.getElementById('results-list');
+    resultsList.innerHTML = '';
+    
+    questions.forEach((question, index) => {
+        const resultItem = document.createElement('div');
+        resultItem.className = `result-item ${userAnswers[index] === question.answer ? 'correct' : 'wrong'}`;
+        
+        const isCorrect = userAnswers[index] === question.answer;
+        const isMarked = markedQuestions.includes(index);
+        
+        resultItem.innerHTML = `
+            <strong>السؤال ${index + 1}:</strong> ${isCorrect ? '✔️ صحيح' : '❌ خطأ'}
+            ${isMarked ? ' <small style="color: #FF9800;">(معلم للمراجعة)</small>' : ''}
+        `;
+        
+        resultsList.appendChild(resultItem);
+    });
+}
+
+// إعادة الاختبار
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    userAnswers = Array(questions.length).fill(null);
+    markedQuestions = [];
+    timeLeft = 45 * 60;
+    
+    document.getElementById('result-box').style.display = 'none';
+    document.getElementById('quiz').style.display = 'block';
+    document.querySelector('.controls').style.display = 'flex';
+    document.getElementById('current-score').style.display = 'none';
+    
+    loadQuiz();
+    startTimer();
+}
+
 // حساب الدرجات النهائية
 function finishQuiz() {
+    clearInterval(timerInterval);
+    
     let totalCorrect = 0;
     userAnswers.forEach((answer, index) => {
         if (answer === questions[index].answer) {
@@ -1424,13 +2022,21 @@ function finishQuiz() {
     document.getElementById("percentage").innerHTML = `النسبة المئوية: ${percentage}%`;
     document.getElementById("evaluation").innerHTML = `التقييم: ${evaluation}`;
     
+    showDetailedResults();
+    showAdvancedStats();
+    
     // إخفاء الاختبار
     document.getElementById("quiz").style.display = "none";
     document.querySelector(".controls").style.display = "none";
+    document.getElementById('questions-list').style.display = 'none';
 }
 
 // بدء التحميل الأولي
-loadQuiz();
+window.onload = function() {
+    checkDarkModePreference();
+    loadQuiz();
+    startTimer();
+}
 </script>
 
 </body>
